@@ -114,22 +114,6 @@ else
 	fi
 fi
 
-
-#Discord - Better than zoom and no time limits with Screensharing that doesn't trash your FPS
-sudo snap install discord
-if [[  $? == 0  ]]
-then
-	echo -e "Discord|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "Discord|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "Discord|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
-fi
-
 ###################################### Git #################################
 
 #Git Bash
