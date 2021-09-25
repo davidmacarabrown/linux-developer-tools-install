@@ -393,34 +393,32 @@ then
 		fi
 	fi
 fi
-sudo rm mongodb-compass_1.28.4_amd64.deb
 
 #MongoDB Compass
 compassfile="mongodb-compass_1.28.4_amd64.deb"
-if [ -f $compassfile ]
+if [  -f $compassfile  ]
 then
 	echo "file exists"
 else
 	wget https://downloads.mongodb.com/compass/mongodb-compass_1.28.4_amd64.deb
-fi
-
-sudo dpkg -i mongodb-compass_1.28.4_amd64.deb
-if [[  $? == 0  ]]
-then
-	echo -e "Compass|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	sudo apt update
-	sudo apt upgrade
-	sudo apt --fix-broken -y install
+	sudo dpkg -i mongodb-compass_1.28.4_amd64.deb
 	if [[  $? == 0  ]]
 	then
-		sudo dpkg -i mongodb-compass_1.28.4_amd64.deb
+		echo -e "Compass|\033[0;32m Pass \033[0m\n" >> log.txt
+	else
+		sudo apt update
+		sudo apt upgrade
+		sudo apt --fix-broken -y install
 		if [[  $? == 0  ]]
 		then
-			echo -e "Compass|\033[0;32m Pass \033[0m\n" >> log.txt
+			sudo dpkg -i mongodb-compass_1.28.4_amd64.deb
+			if [[  $? == 0  ]]
+			then
+				echo -e "Compass|\033[0;32m Pass \033[0m\n" >> log.txt
+			fi
+		else
+			echo -e "Compass|\033[0;31m Fail \033[0m\n" >> log.txt
 		fi
-	else
-		echo -e "Compass|\033[0;31m Fail \033[0m\n" >> log.txt
 	fi
 fi
 
@@ -496,7 +494,7 @@ then
 	echo -e "Miro|\033[0;32m Pass \033[0m\n" >> log.txt
 else
 	apt --fix-broken -y install
-	if [[  $? == 0  ]
+	if [[  $? == 0  ]]
 	then
 		echo -e "Miro|\033[0;32m Pass \033[0m\n" >> log.txt
 	else
