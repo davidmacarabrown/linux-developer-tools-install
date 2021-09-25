@@ -396,7 +396,7 @@ fi
 sudo rm mongodb-compass_1.28.4_amd64.deb
 
 #MongoDB Compass
-compassfile="./mongodb-compass_1.28.4_amd64.deb"
+compassfile="mongodb-compass_1.28.4_amd64.deb"
 if [ -f $compassfile ]
 then
 	echo "file exists"
