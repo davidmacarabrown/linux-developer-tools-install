@@ -8,18 +8,18 @@ This script is provided without warranty of ANY KIND. Please review the script f
 
 ## How To Use This Script
 
-1. Download the script file to your root directory. The path of your file should be ```~/install_script.sh``` 
+1. Download the script file to your root directory. The path of your file should be: ```~/install_script.sh``` 
 2. Open the terminal, navigate to the same folder.
 3. At this point it is also a good idea to update package managers and currently installed packages.\
  To do this enter:\
 ```sudo apt-get update && sudo apt-get upgrade```\
 ```sudo snap refresh```\
 It is a good idea to reboot your computer before continuing.  
-4. Before running the file in the terminal, we have to make it executable. To do this enter\
+4. Before running the file in the terminal, we have to make it executable. To do this enter:\
 ```chmod +x install_script.sh```\
 and press enter. The file is now executable.  
 5. Before running the script, open it in a text editor of your choice and take a look at the contents. Some options are commented out by default, and you can comment out anything you wish to skip for now. You can re-run the script later to install them, or install them manually.
-6. To Run the script, navigate to the root folder in the terminal and enter  
+6. To Run the script, navigate to the root folder in the terminal and enter:  
 ```sudo ./install_script.sh```\
 7. Get something to drink, and follow any prompts in the terminal for the optional installs.
 8. Feel free to add to the script anything you find useful for the future.
