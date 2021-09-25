@@ -4,15 +4,16 @@
 This script is designed to provide a largely unattended install procedure for various popular development tools. It installs various IDEs, Git, and a selection of popular languages and databases. Some design tools and common workspaces are also included (Zoom... Slack).
 
 ## How To Use This Script
-1. Download the script file to your root directory. The path of your file should be ~/install_script.sh.
-2. Open the terminal, navigate to the root folder. It should be the default.
-3. At this point it is also a good idea to update package managers and currently installed packages. To do this enter:
-```sudo apt-get update && sudo apt-get upgrade```
-```sudo snap refresh```
-It is a good idea to reboot your computer before continuing.
-4. Before running the file in the terminal, we have to make it executable. To do this enter 
-```chmod +x install_script.sh``` 
-and press enter. The file is now executable.
+1. Download the script file to your root directory. The path of your file should be ```~/install_script.sh``` 
+2. Open the terminal, navigate to the same folder.
+3. At this point it is also a good idea to update package managers and currently installed packages.\
+ To do this enter:\
+```sudo apt-get update && sudo apt-get upgrade```\
+```sudo snap refresh```\
+It is a good idea to reboot your computer before continuing.\
+4. Before running the file in the terminal, we have to make it executable. To do this enter\
+```chmod +x install_script.sh```\
+and press enter. The file is now executable.\
 
 ## Included Items
 
