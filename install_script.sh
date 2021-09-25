@@ -396,7 +396,13 @@ fi
 sudo rm mongodb-compass_1.28.4_amd64.deb
 
 #MongoDB Compass
-wget https://downloads.mongodb.com/compass/mongodb-compass_1.28.4_amd64.deb
+compassfile="./mongodb-compass_1.28.4_amd64.deb"
+if [ -f $compassfile ]
+then
+	echo "file exists"
+else
+	wget https://downloads.mongodb.com/compass/mongodb-compass_1.28.4_amd64.deb
+fi
 
 sudo dpkg -i mongodb-compass_1.28.4_amd64.deb
 if [[  $? == 0  ]]
