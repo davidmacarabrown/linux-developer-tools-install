@@ -276,7 +276,7 @@ fi
 ##JavaScript
 
 #Node Package Manager
-sudo  -y install nodejs npm
+sudo apt install -y npm
 if [[  $? == 0  ]]
 then
 	echo -e "NPM|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -292,7 +292,7 @@ fi
 
 
 #NodeJS
-sudo apt -y install nodejs
+sudo apt install -y nodejs
 if [[  $? == 0  ]]
 then
 	echo -e "NodeJS|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -307,7 +307,7 @@ else
 fi
 
 #Java
-sudo apt-get -y install openjdk-8-jdk
+sudo apt-get install -y openjdk-8-jdk
 if [[  $? == 0  ]]
 then
 	echo -e "Java JDK 8|\033[0;32m Pass \033[0m\n" >> log.txt
