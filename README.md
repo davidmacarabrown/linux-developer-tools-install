@@ -6,45 +6,45 @@ This script is designed to provide a largely unattended install procedure for va
 ## Included Items
 
 ### Workspaces
--Zoom
--Slack
--Discord
+- Zoom
+- Slack
+- Discord
 
 ### Version
--Git
+- Git
 
 ### IDEs & Editors
--Atom
--VSCode
--IntelliJ Community Edition
--Android Studio
--PyCharm Community Edition
--Thonny (lightweight IDE for MicroPython)
+- Atom
+- VSCode
+- IntelliJ Community Edition
+- Android Studio
+- PyCharm Community Edition
+- Thonny (lightweight IDE for MicroPython)
 
 ### Languages
--Python3 (Included as standard in Ubuntu)
--NodeJS & NPM
--Java JDK 8 (customise version as you see fit)
+- Python3 (Included as standard in Ubuntu)
+- NodeJS & NPM
+- Java JDK 8 (customise version as you see fit)
 
 ### Database
--MongoDB & MongoDB Compass
--PostgresQL
+- MongoDB & MongoDB Compass
+- PostgresQL
 
 ### API Testing
--Insomnia
--Postman
+- Insomnia
+- Postman
 
 ### Design Tools
--Figma
--Miro
--DrawIO
+- Figma
+- Miro
+- DrawIO
 
 ### Optional
--Mono C# IDE (Commented out in the file by default)
--Oracle VirtualBox
--Oh-My-Zsh terminal shell
--Local time adjustment (useful when dual-booting to avoid clock sync problems in Windows)
+- Mono C# IDE (Commented out in the file by default)
+- Oracle VirtualBox
+- Oh-My-Zsh terminal shell
+- Local time adjustment (useful when dual-booting to avoid clock sync problems in Windows)
 
 ### Other
--Curl
--XClip (useful for copying to the clipboard from terminal e.g. for pasting SSH key to Github account)
+- Curl
+- XClip (useful for copying to the clipboard from terminal e.g. for pasting SSH key to Github account)
