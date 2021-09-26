@@ -54,7 +54,6 @@ else
 fi
 
 #Setting Linux to use Local Time to fix clock sync when dual booting Windows - comment the following lines if you want this to be skipped.
-
 read -p "Set Linux to use Local Time? (Useful when dual booting to prevent clock from being out by one hour in Windows) [y/n]: " clockinput
 if [[  $clockinput == "y"  ]]
 then
@@ -69,7 +68,7 @@ else
 	echo -e "Local Time|\033[0;33m Skip \033[0m\n" >> log.txt
 fi
 
-#xclip - enables copying to clipboard via command line - useful for copying ZSH keys to paste to github
+#Xclip - enables copying to clipboard via command line - useful for copying ZSH keys to paste to github
 sudo apt-get -y install xclip
 if [[  $? == 0  ]]
 then
@@ -99,7 +98,7 @@ else
 	fi
 fi
 
-##Zoom
+#Zoom
 sudo snap install zoom-client
 if [[  $? == 0  ]]
 then
@@ -131,7 +130,6 @@ else
 	fi
 fi
 
-echo Creating .gitignore_global
 ignorefile="./.gitingore_global"
 if [  -f $ignorefile  ]
 then
@@ -160,6 +158,7 @@ then
 else
 		echo -e "Global Ignore|\033[0;31m Fail \033[0m\n" >> log.txt
 fi
+
 ################################### Editors / IDE #########################
 # Add your own... :D
 
@@ -193,7 +192,6 @@ else
 	fi
 fi
 
-
 #IntelliJ Community Edition
 sudo snap install intellij-idea-community --classic
 if [[  $? == 0  ]]
@@ -210,7 +208,6 @@ else
 fi
 
 #Android Studio
-sudo snap refresh
 sudo snap install android-studio --classic
 if [[  $? == 0  ]]
 then
@@ -257,8 +254,6 @@ fi
 
 ####################################LANGUAGES ###########################
 
-##JavaScript
-
 #Node Package Manager
 sudo apt install -y npm
 if [[  $? == 0  ]]
@@ -273,7 +268,6 @@ else
 		echo -e "NPM|\033[0;31m Fail \033[0m\n" >> log.txt
 	fi
 fi
-
 
 #NodeJS
 sudo apt install -y nodejs
@@ -305,7 +299,7 @@ else
 	fi
 fi
 
-## MonoDevelop for C#
+# MonoDevelop for C#
 #SOURCE: https://www.monodevelop.com/download/#fndtn-download-lin
 
 #Add Mono Repository
@@ -316,9 +310,6 @@ fi
 #	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
 #	echo "deb https://download.mono-project.com/repo/ubuntu vs-bionic main" | sudo tee /etc/apt/sources.list.d/mono-official-vs.list
 #	sudo apt update
-
-	#Install MonoDevelop
-
 #	sudo apt-get -y install mono-complete
 #	if [[  $? == 0  ]]
 #	then
@@ -519,12 +510,17 @@ else
 fi
 
 ################################# CLEANUP ############################################
+
 apt --fix-broken -y install
 sudo apt autoremove
+
 #################################### LOG ##############################################
+
+echo "---------------------------------------------"
+echo "Complete - Log file can be found at ~/log.txt"
 echo "---------------------------------------------"
 column log.txt -e -t -s "|"
-
+echo "---------------------------------------------"
 echo -n "Review results and press enter to continue to ZSH install"
 
 ################################# ZSH ##############################################
@@ -537,8 +533,10 @@ then
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 	exit 0
 fi
+
 echo -e "Oh-My-Zsh|\033[0;33m Skip \033[0m\n" >> log.txt
 echo "---------------------------------------------"
 echo "Complete - Log file can be found at ~/log.txt"
 echo "---------------------------------------------"
+
 exit 0
