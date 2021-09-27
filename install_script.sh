@@ -27,6 +27,8 @@ echo "Continue"
 
 #TODO: add input to ask if the user wants to enable optionals?
 #TODO: move all optional input prompts (not the code itself) to the top?
+#TODO add Postgres under current name
+
 
 #checking for existing log file and creating one
 echo "Creating Log File at ./log.txt"
@@ -461,8 +463,8 @@ read continueanswer
 read -p "Install Oh-My-Zsh? [y/n]: " instzsh
 if [[  $instzsh == "y"  ]]
 then
-	sleep 1s
 	apt-get -y install zsh
+	chsh -s $(which zsh)
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 	exit 0
 fi
