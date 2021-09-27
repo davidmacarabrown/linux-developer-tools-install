@@ -1,5 +1,5 @@
 #!/bin/bash
-
+username=`whoami`
 echo ""
 echo "Development Tools Install Script"
 echo ""
@@ -28,6 +28,7 @@ echo "Continue"
 #TODO: add input to ask if the user wants to enable optionals?
 #TODO: move all optional input prompts (not the code itself) to the top?
 #TODO add Postgres under current name
+#TODO update readme remove sudo instructions, permissions will be increased after script starts
 
 
 #checking for existing log file and creating one
@@ -463,9 +464,8 @@ read continueanswer
 read -p "Install Oh-My-Zsh? [y/n]: " instzsh
 if [[  $instzsh == "y"  ]]
 then
-	apt-get -y install zsh
-	chsh -s $(which zsh)
-	echo "Changing default shell to ZSH"
+	apt -y install zsh
+	sudo -u $username cnsh -s $(which zsh)
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 	exit 0
 fi
