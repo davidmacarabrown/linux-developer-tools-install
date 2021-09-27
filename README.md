@@ -12,15 +12,15 @@ This script is provided without warranty of ANY KIND. Please review the script f
 2. Open the terminal, navigate to the same folder.  
 3. At this point it is also a good idea to update package managers and currently installed packages.  
 
-To do this enter:
+   To do this enter:
 
-`sudo apt-get update && sudo apt-get upgrade`  
+   `sudo apt-get update && sudo apt-get upgrade`  
 
-then:  
+   then:  
 
-`sudo snap refresh`  
+   `sudo snap refresh`  
 
-It is a good idea to reboot your computer before continuing.  
+   It is a good idea to reboot your computer before continuing.  
 
 4. Before running the file in the terminal, we have to make it executable. To do this enter:  
 `chmod +x install_script.sh`  
