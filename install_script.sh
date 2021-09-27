@@ -28,6 +28,9 @@ then
 fi
 echo "Continue"
 
+#TODO: add input to ask if the user wants to enable optionals?
+#TODO: move all optionals (apart from ZSH) to the top?
+
 #checking for existing log file and creating one
 echo "Creating Log File at ./log.txt"
 logfile="./log.txt"
