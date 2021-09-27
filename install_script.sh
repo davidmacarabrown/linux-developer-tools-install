@@ -30,7 +30,7 @@ echo "Creating Log File at ./log.txt"
 logfile="./log.txt"
 if [[  -f $logfile  ]]
 then
-	sudo rm log.txt
+	rm log.txt
 fi
 touch log.txt
 echo -e "Install|Result" >> log.txt
@@ -39,7 +39,7 @@ echo -e "-------|------" >> log.txt
 ############################### Useful Extras ############################
 
 #Curl
-sudo apt install -y curl
+apt install -y curl
 if [[  $? == 0  ]]
 then
 	echo -e "Curl|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -57,7 +57,7 @@ fi
 read -p "Set Linux to use Local Time? (Useful when dual booting to prevent clock from being out by one hour in Windows) [y/n]: " clockinput
 if [[  $clockinput == "y"  ]]
 then
-	sudo timedatectl set-local-rtc 1
+	timedatectl set-local-rtc 1
 	if [[  $? == 0  ]]
 	then
 		echo -e "Local Time|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -69,7 +69,7 @@ else
 fi
 
 #Xclip - enables copying to clipboard via command line - useful for copying ZSH keys to paste to github
-sudo apt-get -y install xclip
+apt-get -y install xclip
 if [[  $? == 0  ]]
 then
 	echo -e "XClip|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -84,7 +84,7 @@ else
 fi
 
 #Slack Messaging Platform
-sudo snap install slack --classic
+snap install slack --classic
 if [[  $? == 0  ]]
 then
 	echo -e "Slack|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -99,7 +99,7 @@ else
 fi
 
 #Zoom
-sudo snap install zoom-client
+snap install zoom-client
 if [[  $? == 0  ]]
 then
 	echo -e "Zoom|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -116,7 +116,7 @@ fi
 ###################################### Git #################################
 
 #Git Bash
-sudo apt-get -y install git
+apt-get -y install git
 if [[  $? == 0  ]]
 then
 	echo -e "Git Bash|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -140,7 +140,7 @@ touch .gitignore_global
 if [[  $? == 0  ]]
 then
 		echo -e "Global Ignore|\033[0;32m Pass \033[0m\n" >> log.txt
-		sudo echo "**/node_modules" >> .gitignore_global
+		echo "**/node_modules" >> .gitignore_global
 		if [[  $? == 0  ]]
 		then
 				echo -e "Node Modules|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -163,7 +163,7 @@ fi
 # Add your own... :D
 
 #Atom
-sudo snap install atom --classic
+snap install atom --classic
 if [[  $? == 0  ]]
 then
 	echo -e "Atom|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -178,7 +178,7 @@ else
 fi
 
 #VSCode
-sudo snap install code --classic
+snap install code --classic
 if [[ $? == 0  ]]
 then
 	echo -e "VSCode|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -193,7 +193,7 @@ else
 fi
 
 #IntelliJ Community Edition
-sudo snap install intellij-idea-community --classic
+snap install intellij-idea-community --classic
 if [[  $? == 0  ]]
 then
 	echo -e "IntelliJ|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -208,7 +208,7 @@ else
 fi
 
 #Android Studio
-sudo snap install android-studio --classic
+snap install android-studio --classic
 if [[  $? == 0  ]]
 then
 	echo -e "Android Studio|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -223,7 +223,7 @@ else
 fi
 
 #Pycharm Community Edition
-sudo snap install pycharm-community --classic
+snap install pycharm-community --classic
 if [[  $? == 0  ]]
 then
 	echo -e "Pycharm|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -238,7 +238,7 @@ else
 fi
 
 #Thonny - Lightweight IDE for MicroPython
-sudo apt -y install thonny
+apt -y install thonny
 if [[  $? == 0  ]]
 then
 	echo -e "Thonny|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -255,7 +255,7 @@ fi
 ####################################LANGUAGES ###########################
 
 #Node Package Manager
-sudo apt install -y npm
+apt install -y npm
 if [[  $? == 0  ]]
 then
 	echo -e "NPM|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -270,7 +270,7 @@ else
 fi
 
 #NodeJS
-sudo apt install -y nodejs
+apt install -y nodejs
 if [[  $? == 0  ]]
 then
 	echo -e "NodeJS|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -285,7 +285,7 @@ else
 fi
 
 #Java
-sudo apt-get install -y openjdk-8-jdk
+apt-get install -y openjdk-8-jdk
 if [[  $? == 0  ]]
 then
 	echo -e "Java JDK 8|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -306,11 +306,11 @@ fi
 #read -p "Install Mono for C#? [y/n]: " monoanswer
 #if [[ $monoanswer == "y" ]]
 #then
-#	sudo apt install apt-transport-https dirmngr
-#	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-#	echo "deb https://download.mono-project.com/repo/ubuntu vs-bionic main" | sudo tee /etc/apt/sources.list.d/mono-official-vs.list
-#	sudo apt update
-#	sudo apt-get -y install mono-complete
+#	apt install apt-transport-https dirmngr
+#	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+#	echo "deb https://download.mono-project.com/repo/ubuntu vs-bionic main" | tee /etc/apt/sources.list.d/mono-official-vs.list
+#	apt update
+#	apt-get -y install mono-complete
 #	if [[  $? == 0  ]]
 #	then
 #		echo -e "Mono C#|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -330,35 +330,35 @@ fi
 ####################################### DATABASE #################################
 
 #MongoDB
-sudo apt-get -y install gnupg
+apt-get -y install gnupg
 if [[  $? == 0 ]]
 then
-	wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+	wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | apt-key add -
 	if [[  $? == 0  ]]
 	then
-		sudo apt-get -y install gnupg
-		wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+		apt-get -y install gnupg
+		wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | apt-key add -
 		touch /etc/apt/sources.list.d/mongodb-org-5.0.list
 		if [[  $? == 0  ]]
 		then
-			echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+			echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-5.0.list
 			if [[  $? == 0  ]]
 			then
-				sudo apt-get update
-				sudo apt-get install -y mongodb-org
+				apt-get update
+				apt-get install -y mongodb-org
 				if [[  $? == 0  ]]
 				then
-						sudo systemctl daemon-reload
-						sudo systemctl start mongod
-						sudo systemctl enable mongod
+						systemctl daemon-reload
+						systemctl start mongod
+						systemctl enable mongod
 						echo -e "MongoDB|\033[0;32m Pass \033[0m\n" >> log.txt
 				else
 					apt --fix-broken -y install
 					if [[  $? == 0  ]]
 					then
-							sudo systemctl daemon-reload
-							sudo systemctl start mongod
-							sudo systemctl enable mongod
+							systemctl daemon-reload
+							systemctl start mongod
+							systemctl enable mongod
 							echo -e "MongoDB|\033[0;32m Pass \033[0m\n" >> log.txt
 					else
 						echo -e "MongoDB|\033[0;31m Fail \033[0m\n" >> log.txt
@@ -376,17 +376,17 @@ then
 	echo "file exists"
 else
 	wget https://downloads.mongodb.com/compass/mongodb-compass_1.28.4_amd64.deb
-	sudo dpkg -i mongodb-compass_1.28.4_amd64.deb
+	dpkg -i mongodb-compass_1.28.4_amd64.deb
 	if [[  $? == 0  ]]
 	then
 		echo -e "Compass|\033[0;32m Pass \033[0m\n" >> log.txt
 	else
-		sudo apt update
-		sudo apt upgrade
-		sudo apt --fix-broken -y install
+		apt update
+		apt upgrade
+		apt --fix-broken -y install
 		if [[  $? == 0  ]]
 		then
-			sudo dpkg -i mongodb-compass_1.28.4_amd64.deb
+			dpkg -i mongodb-compass_1.28.4_amd64.deb
 			if [[  $? == 0  ]]
 			then
 				echo -e "Compass|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -398,7 +398,7 @@ else
 fi
 
 #Insomnia
-sudo snap install insomnia
+snap install insomnia
 if [[  $? == 0  ]]
 then
 	echo -e "Insomnia|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -413,7 +413,7 @@ else
 fi
 
 #Postman
-sudo snap install postman
+snap install postman
 if [[  $? == 0  ]]
 then
 	echo -e "Postman|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -428,10 +428,10 @@ else
 fi
 
 #PostgresQL
-sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-sudo apt-get update
-sudo apt-get -y install postgresql
+sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+apt-get update
+apt-get -y install postgresql
 if [[  $? == 0  ]]
 then
 	echo -e "PostgresQL|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -448,7 +448,7 @@ fi
 #################################### PLANNING/DESIGN #############################
 
 #Figma
-sudo snap install figma-linux
+snap install figma-linux
 if [[ $? == 0  ]]
 then
 	echo -e "Figma|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -463,7 +463,7 @@ else
 fi
 
 #Miro - "edge"/experimental release
-sudo snap install --edge miro
+snap install --edge miro
 if [[  $? == 0  ]]
 then
 	echo -e "Miro|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -478,7 +478,7 @@ else
 fi
 
 #DrawIO - versatile UML software
-sudo snap install drawio
+snap install drawio
 if [[  $? == 0  ]]
 then
 	echo -e "DrawIO|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -498,7 +498,7 @@ fi
 read -p "Do you want to install Oracle Virtual Box? [y/n]: " virtualcont
 if [[  $virtualcont == "y" ]]
 then
-	sudo apt-get -y install virtualbox
+	apt-get -y install virtualbox
 	if [[  $? == 0  ]]
 	then
 		echo -e "VirtualBox|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -512,7 +512,7 @@ fi
 ################################# CLEANUP ############################################
 
 apt --fix-broken -y install
-sudo apt autoremove
+apt autoremove
 
 #################################### LOG ##############################################
 
@@ -529,7 +529,7 @@ read -p "Install Oh-My-Zsh? [y/n]: " instzsh
 if [[  $instzsh == "y"  ]]
 then
 	sleep 1s
-	sudo apt-get -y install zsh
+	apt-get -y install zsh
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 	exit 0
 fi
