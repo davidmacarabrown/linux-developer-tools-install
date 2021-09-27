@@ -4,6 +4,10 @@ echo ""
 echo "Development Tools Install Script"
 echo ""
 echo ""
+if [ "$EUID" != 0 ]
+	then echo "Please run this script as root by entering: sudo <path to script>"
+	exit 0
+fi
 echo "This script is provided without warranty of any kind."
 echo ""
 echo ""
@@ -13,7 +17,6 @@ echo ""
 echo "sudo apt-get update"
 echo "sudo apt-get upgrade"
 echo "sudo snap refresh"
-echo ""
 echo ""
 echo ""
 read -p "It is advised to download and apply any outstanding updates before running this script. Continue? [y/n]: " answer1
