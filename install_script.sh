@@ -29,7 +29,7 @@ fi
 echo "Continue"
 
 #TODO: add input to ask if the user wants to enable optionals?
-#TODO: move all optionals (apart from ZSH) to the top?
+#TODO: move all optional input prompts (not the code itself) to the top?
 
 #checking for existing log file and creating one
 echo "Creating Log File at ./log.txt"
@@ -544,5 +544,4 @@ echo -e "Oh-My-Zsh|\033[0;33m Skip \033[0m\n" >> log.txt
 echo "---------------------------------------------"
 echo "Complete - Log file can be found at ~/log.txt"
 echo "---------------------------------------------"
-
 exit 0
