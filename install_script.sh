@@ -1,13 +1,14 @@
 #!/bin/bash
-username=`whoami`
 echo ""
 echo "Development Tools Install Script"
 echo ""
 
+username=`logname`
 if [ "$EUID" != 0 ]
 	then echo "Please run this script as root by entering: sudo <path to script>"
 	exit 0
 fi
+
 echo "This script is provided without warranty of any kind."
 echo ""
 echo "Before running this script it is advised to run the following commands in the terminal to update packages:"
@@ -461,13 +462,14 @@ echo -n "Review results and press enter to continue to ZSH install"
 
 ################################# ZSH ##############################################
 read continueanswer
+
+dir=${PWD##*/}
 read -p "Install Oh-My-Zsh? [y/n]: " instzsh
 if [[  $instzsh == "y"  ]]
 then
 	apt -y install zsh
 	sudo -u $username cnsh -s $(which zsh)
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-	exit 0
 fi
 
 echo "---------------------------------------------"
