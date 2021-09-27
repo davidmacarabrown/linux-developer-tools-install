@@ -1,23 +1,21 @@
 #!/bin/bash
-echo ""
+
 echo ""
 echo "Development Tools Install Script"
 echo ""
-echo ""
+
 if [ "$EUID" != 0 ]
 	then echo "Please run this script as root by entering: sudo <path to script>"
 	exit 0
 fi
 echo "This script is provided without warranty of any kind."
 echo ""
-echo ""
+
 echo "Before running this script it is advised to run the following commands in the terminal to update packages:"
-echo ""
 echo ""
 echo "sudo apt-get update"
 echo "sudo apt-get upgrade"
 echo "sudo snap refresh"
-echo ""
 echo ""
 read -p "It is advised to download and apply any outstanding updates before running this script. Continue? [y/n]: " answer1
 
@@ -40,7 +38,7 @@ then
 fi
 touch log.txt
 echo -e "Install|Result" >> log.txt
-echo -e "-------|------" >> log.txt
+echo -e "-----------|-----------" >> log.txt
 
 ############################### Useful Extras ############################
 
@@ -95,13 +93,7 @@ if [[  $? == 0  ]]
 then
 	echo -e "Slack|\033[0;32m Pass \033[0m\n" >> log.txt
 else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "Slack|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "Slack|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
+	echo -e "Slack|\033[0;31m Fail \033[0m\n" >> log.txt
 fi
 
 #Zoom
@@ -110,13 +102,7 @@ if [[  $? == 0  ]]
 then
 	echo -e "Zoom|\033[0;32m Pass \033[0m\n" >> log.txt
 else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "Zoom|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "Zoom|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
+	echo -e "Zoom|\033[0;31m Fail \033[0m\n" >> log.txt
 fi
 
 ###################################### Git #################################
@@ -174,13 +160,7 @@ if [[  $? == 0  ]]
 then
 	echo -e "Atom|\033[0;32m Pass \033[0m\n" >> log.txt
 else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "Atom|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "Atom|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
+	echo -e "Atom|\033[0;31m Fail \033[0m\n" >> log.txt
 fi
 
 #VSCode
@@ -189,13 +169,7 @@ if [[ $? == 0  ]]
 then
 	echo -e "VSCode|\033[0;32m Pass \033[0m\n" >> log.txt
 else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "VSCode|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "VSCode|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
+		cho -e "VSCode|\033[0;31m Fail \033[0m\n" >> log.txt
 fi
 
 #IntelliJ Community Edition
@@ -204,13 +178,7 @@ if [[  $? == 0  ]]
 then
 	echo -e "IntelliJ|\033[0;32m Pass \033[0m\n" >> log.txt
 else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "IntelliJ|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "IntelliJ|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
+	echo -e "IntelliJ|\033[0;31m Fail \033[0m\n" >> log.txt
 fi
 
 #Android Studio
@@ -219,13 +187,7 @@ if [[  $? == 0  ]]
 then
 	echo -e "Android Studio|\033[0;32m Pass \033[0m\n" >> log.txt
 else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "Android Studio|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
 		echo -e "Android Studio|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
 fi
 
 #Pycharm Community Edition
@@ -234,13 +196,7 @@ if [[  $? == 0  ]]
 then
 	echo -e "Pycharm|\033[0;32m Pass \033[0m\n" >> log.txt
 else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "Pycharm|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "Pycharm|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
+	echo -e "Pycharm|\033[0;31m Fail \033[0m\n" >> log.txt
 fi
 
 #Thonny - Lightweight IDE for MicroPython
@@ -409,13 +365,7 @@ if [[  $? == 0  ]]
 then
 	echo -e "Insomnia|\033[0;32m Pass \033[0m\n" >> log.txt
 else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "Insomnia|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "Insomnia|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
+echo -e "Insomnia|\033[0;31m Fail \033[0m\n" >> log.txt
 fi
 
 #Postman
@@ -424,13 +374,7 @@ if [[  $? == 0  ]]
 then
 	echo -e "Postman|\033[0;32m Pass \033[0m\n" >> log.txt
 else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "Postman|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "Postman|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
+	echo -e "Postman|\033[0;31m Fail \033[0m\n" >> log.txt
 fi
 
 #PostgresQL
@@ -459,13 +403,7 @@ if [[ $? == 0  ]]
 then
 	echo -e "Figma|\033[0;32m Pass \033[0m\n" >> log.txt
 else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "Figma|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "Figma|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
+	echo -e "Figma|\033[0;31m Fail \033[0m\n" >> log.txt
 fi
 
 #Miro - "edge"/experimental release
@@ -474,14 +412,9 @@ if [[  $? == 0  ]]
 then
 	echo -e "Miro|\033[0;32m Pass \033[0m\n" >> log.txt
 else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "Miro|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "Miro|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
+	echo -e "Miro|\033[0;31m Fail \033[0m\n" >> log.txt
 fi
+
 
 #DrawIO - versatile UML software
 snap install drawio
@@ -489,14 +422,9 @@ if [[  $? == 0  ]]
 then
 	echo -e "DrawIO|\033[0;32m Pass \033[0m\n" >> log.txt
 else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "DrawIO|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "DrawIO|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
+	echo -e "DrawIO|\033[0;31m Fail \033[0m\n" >> log.txt
 fi
+
 
 ####################################### OTHER #########################################
 
@@ -540,8 +468,7 @@ then
 	exit 0
 fi
 
-echo -e "Oh-My-Zsh|\033[0;33m Skip \033[0m\n" >> log.txt
 echo "---------------------------------------------"
-echo "Complete - Log file can be found at ~/log.txt"
+echo "Complete"
 echo "---------------------------------------------"
 exit 0
