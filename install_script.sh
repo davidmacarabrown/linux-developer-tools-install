@@ -10,7 +10,6 @@ if [ "$EUID" != 0 ]
 fi
 echo "This script is provided without warranty of any kind."
 echo ""
-
 echo "Before running this script it is advised to run the following commands in the terminal to update packages:"
 echo ""
 echo "sudo apt-get update"
@@ -451,7 +450,7 @@ apt autoremove
 #################################### LOG ##############################################
 
 echo "---------------------------------------------"
-echo "Complete - Log file can be found at ~/log.txt"
+echo "Installation Log:"
 echo "---------------------------------------------"
 column log.txt -e -t -s "|"
 echo "---------------------------------------------"
