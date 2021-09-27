@@ -465,6 +465,7 @@ if [[  $instzsh == "y"  ]]
 then
 	apt-get -y install zsh
 	chsh -s $(which zsh)
+	echo "Changing default shell to ZSH"
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 	exit 0
 fi
