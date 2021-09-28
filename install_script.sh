@@ -197,13 +197,13 @@ else
 fi
 
 #Pycharm Community Edition
-snap install pycharm-community --classic
-if [[  $? == 0  ]]
-then
-	echo -e "Pycharm|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	echo -e "Pycharm|\033[0;31m Fail \033[0m\n" >> log.txt
-fi
+#snap install pycharm-community --classic
+#if [[  $? == 0  ]]
+#then
+#	echo -e "Pycharm|\033[0;32m Pass \033[0m\n" >> log.txt
+#else
+#	echo -e "Pycharm|\033[0;31m Fail \033[0m\n" >> log.txt
+#fi
 
 #Thonny - Lightweight IDE for MicroPython
 apt -y install thonny
