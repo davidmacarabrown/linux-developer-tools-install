@@ -4,6 +4,7 @@ echo "Development Tools Install Script"
 echo ""
 
 username=`logname`
+
 if [ "$EUID" != 0 ]
 	then echo "Please run this script as root by entering: sudo <path to script>"
 	exit 0
@@ -30,7 +31,9 @@ echo "Continue"
 #TODO: move all optional input prompts (not the code itself) to the top?
 #TODO add Postgres under current name
 #TODO update readme remove sudo instructions, permissions will be increased after script starts
-
+#TODO add code . for vscode
+#TODO POSTICO for postgres GUI
+#TODO drop pyCharm?
 
 #checking for existing log file and creating one
 echo "Creating Log File at ./log.txt"
@@ -463,16 +466,16 @@ echo -n "Review results and press enter to continue to ZSH install"
 ################################# ZSH ##############################################
 read continueanswer
 
-dir=${PWD##*/}
 read -p "Install Oh-My-Zsh? [y/n]: " instzsh
 if [[  $instzsh == "y"  ]]
 then
-	apt -y install zsh
+	apt-get -y install zsh
+	git clone https://github.com/ohmyzsh/ohmyzsh.git ./.oh-my-zsh
+	cp ./.oh-my-zsh/templates/zshrc.zsh-template ./.zshrc
 	sudo -u $username cnsh -s $(which zsh)
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+	echo "---------------------------------------------"
+	echo "Complete"
+	echo "---------------------------------------------"
 fi
-
-echo "---------------------------------------------"
-echo "Complete"
-echo "---------------------------------------------"
 exit 0
