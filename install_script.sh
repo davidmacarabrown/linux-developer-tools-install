@@ -456,15 +456,11 @@ apt autoremove
 
 #################################### LOG ##############################################
 
-echo "---------------------------------------------"
-echo "Installation Log:"
-echo "---------------------------------------------"
-column log.txt -e -t -s "|"
-echo "---------------------------------------------"
-echo -n "Review results and press enter to continue to ZSH install"
+
+#echo -n "Review results and press enter to continue to ZSH install"
 
 ################################# ZSH ##############################################
-read continueanswer
+#read continueanswer
 
 read -p "Install Oh-My-Zsh? [y/n]: " instzsh
 if [[  $instzsh == "y"  ]]
@@ -473,9 +469,11 @@ then
 	git clone https://github.com/ohmyzsh/ohmyzsh.git ./.oh-my-zsh
 	cp ./.oh-my-zsh/templates/zshrc.zsh-template ./.zshrc
 	sudo -u $username cnsh -s $(which zsh)
-else
-	echo "---------------------------------------------"
-	echo "Complete"
-	echo "---------------------------------------------"
 fi
+
+echo "---------------------------------------------"
+echo "Installation Log:"
+echo "---------------------------------------------"
+column log.txt -e -t -s "|"
+echo "---------------------------------------------"
 exit 0
