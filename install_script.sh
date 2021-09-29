@@ -47,21 +47,29 @@ echo -e "Install|Result" >> log.txt
 echo -e "-----------|-----------" >> log.txt
 
 ############################### Functions ################################
+
 function log_result(){
 	local"$1"=packagename "$2"=result
-
+	if [[ $result == "pass" ]]
+	then
+		echo -e "$packagename|\033[0;32m Pass \033[0m\n" >> log.txt
+	elif [[ $result == "fail" ]]
+	then
+		echo -e "$packagename|\033[0;31m Fail \033[0m\n" >> log.txt
+	else
+		echo -e "$packagename|\033[0;33m Skip \033[0m\n" >> log.txt
 }
 
 function install_apt(){
 	local "$1"=packagename
-	local result="Pass"
+	local result="pass"
 	sudo apt install $packagename
 	if [[  $? -ne 0  ]]
 	then
 		apt --fix-broken -y install
 		if [[  $? -ne 0  ]]
 		then
-			result="Fail"
+			result="fail"
 		fi
 		log_result($packagename, $result)
 }
