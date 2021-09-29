@@ -50,6 +50,7 @@ echo -e "-----------|-----------" >> log.txt
 
 function log_result(){
 	local packagename="$1" result="$2"
+	echo $packagename
 	if [[ $result == "pass" ]]
 	then
 		echo -e "$packagename |\033[0;32m pass \033[0m\n" >> log.txt
@@ -63,17 +64,13 @@ function log_result(){
 
 function install_apt(){
 	local packagename="$1"
-	local result="pass"
 	sudo apt install $packagename
-	if [[  $? -ne 0  ]]
+	if [[  $? != 0  ]]
 	then
-		apt --fix-broken -y install
-		if [[  $? -ne 0  ]]
-		then
-			result="fail"
-		fi
+		log_result $packagename "fail"
+	else
+		log_result $packagename "pass"
   fi
-	log_result $packagename $result
 }
 
 function install_snap(){
