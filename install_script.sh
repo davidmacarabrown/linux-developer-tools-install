@@ -71,6 +71,7 @@ function install_apt(){
 		then
 			result="fail"
 		fi
+	fi
 		log_result($packagename, $result)
 }
 
