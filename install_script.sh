@@ -114,7 +114,7 @@ fi
 
 ###################################### Git #################################
 
-#Git Bash
+#Git CLI
 apt-get -y install git
 if [[  $? == 0  ]]
 then
@@ -129,34 +129,31 @@ else
 	fi
 fi
 
+#Global .gitignore
 ignorefile="./.gitingore_global"
-if [  -f $ignorefile  ]
+if [ ! -f $ignorefile  ]
 then
-	rm -r .gitingore_global
+	touch .gitignore_global
 fi
-
-touch .gitignore_global
+echo -e "Global Ignore|\033[0;32m Pass \033[0m\n" >> log.txt
+echo "**/node_modules" >> .gitignore_global
 if [[  $? == 0  ]]
 then
-		echo -e "Global Ignore|\033[0;32m Pass \033[0m\n" >> log.txt
-		echo "**/node_modules" >> .gitignore_global
-		if [[  $? == 0  ]]
-		then
-				echo -e "Node Modules|\033[0;32m Pass \033[0m\n" >> log.txt
-		else
-				echo -e "Node Modules|\033[0;31m Fail \033[0m\n" >> log.txt
-		fi
-
-		git config --global core.excludesfile .gitignore_global
-		if [[  $? == 0  ]]
-		then
-				echo -e "Global Config|\033[0;32m Pass \033[0m\n" >> log.txt
-		else
-				echo -e "Global Config|\033[0;31m Fail \033[0m\n" >> log.txt
-		fi
+	echo -e "Node Modules|\033[0;32m Pass \033[0m\n" >> log.txt
 else
-		echo -e "Global Ignore|\033[0;31m Fail \033[0m\n" >> log.txt
+	echo -e "Node Modules|\033[0;31m Fail \033[0m\n" >> log.txt
 fi
+
+#Adding global ignore to Git config
+git config --global core.excludesfile .gitignore_global
+if [[  $? == 0  ]]
+then
+	echo -e "Global Config|\033[0;32m Pass \033[0m\n" >> log.txt
+else
+	echo -e "Global Config|\033[0;31m Fail \033[0m\n" >> log.txt
+fi
+	echo -e "Global Ignore|\033[0;31m Fail \033[0m\n" >> log.txt
+
 
 ################################### Editors / IDE #########################
 # Add your own... :D
