@@ -61,7 +61,7 @@ function log_result(){
 
 function install_package(){
 	local manager="$1" packagename="$2"
-	sudo $manager install $packagename
+	sudo $manager install -y $packagename
 	if [[  $? != 0  ]]
 	then
 		log_result $packagename "fail"
@@ -73,19 +73,8 @@ function install_package(){
 ############################### Useful Extras ############################
 
 #Curl
-apt install -y curl
-if [[  $? == 0  ]]
-then
-	echo -e "Curl|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	apt --fix-broken -y install
-	if [[ $? == 0 ]]
-	then
-		echo -e "Curl|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "Curl|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
-fi
+install_package "apt" "curl"
+
 
 #Setting Linux to use Local Time to fix clock sync when dual booting Windows - comment the following lines if you want this to be skipped.
 read -p "Set Linux to use Local Time? (Useful when dual booting to prevent clock from being out by one hour in Windows) [y/n]: " clockinput
@@ -103,54 +92,18 @@ else
 fi
 
 #Xclip - enables copying to clipboard via command line - useful for copying ZSH keys to paste to github
-apt-get -y install xclip
-if [[  $? == 0  ]]
-then
-	echo -e "XClip|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "XClip|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "XClip|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
-fi
+install_package "apt" "xclip"
 
 #Slack Messaging Platform
-snap install slack --classic
-if [[  $? == 0  ]]
-then
-	echo -e "Slack|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	echo -e "Slack|\033[0;31m Fail \033[0m\n" >> log.txt
-fi
+install_package "snap" "slack --classic"
 
 #Zoom
-snap install zoom-client
-if [[  $? == 0  ]]
-then
-	echo -e "Zoom|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	echo -e "Zoom|\033[0;31m Fail \033[0m\n" >> log.txt
-fi
+install_package "snap" "zoom-client"
 
 ###################################### Git #################################
 
 #Git CLI
-apt-get -y install git
-if [[  $? == 0  ]]
-then
-	echo -e "Git Bash|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "Git Bash|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "Git Bash|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
-fi
+install_package "apt" "git"
 
 #Global .gitignore
 ignorefile="./.gitingore_global"
