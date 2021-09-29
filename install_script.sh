@@ -107,12 +107,17 @@ install_package "snap" "zoom-client"
 #Git CLI
 install_package "apt" "git"
 
+#Git Kraken - awesome GUI for Git operations
+instal_package "snap" "gitkraken"
+
 #Global .gitignore
 ignorefile="./.gitingore_global"
 if [ ! -f $ignorefile  ]
 then
 	touch .gitignore_global
 fi
+
+
 
 #Adding node_modules to global ignore this can easily be added to by using: [ echo <what-to-ignore> >> .gitignore_global ]
 echo "**/node_modules" >> .gitignore_global
@@ -212,6 +217,7 @@ install_package "apt" "postgresql"
 sudo curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
 sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
 install_package "apt" "pgadmin4-desktop"
+
 #################################### PLANNING/DESIGN #############################
 
 install_package "snap" "figma"
