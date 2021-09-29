@@ -237,7 +237,8 @@ apt --fix-broken -y install
 apt autoremove
 
 ################################# ZSH ##############################################
-#read continueanswer
+
+read continueanswer
 function install_ohmyzsh(){
 	apt-get -y install zsh
 	git clone https://github.com/ohmyzsh/ohmyzsh.git ./.oh-my-zsh
