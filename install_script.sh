@@ -29,11 +29,12 @@ echo "Continue"
 
 #TODO: add input to ask if the user wants to enable optionals?
 #TODO: move all optional input prompts (not the code itself) to the top?
-#TODO add Postgres under current name
-#TODO update readme remove sudo instructions, permissions will be increased after script starts
-#TODO add code . for vscode
-#TODO POSTICO for postgres GUI
-#TODO drop pyCharm?
+#TODO: add Postgres under current name
+#TODO: update readme remove sudo instructions, permissions will be increased after script starts
+#TODO: add code . for vscode
+#TODO: POSTICO for postgres GUI
+#TODO: ADD user for postgres
+#TODO: drop pyCharm?
 
 #checking for existing log file and creating one
 echo "Creating Log File at ./log.txt"
