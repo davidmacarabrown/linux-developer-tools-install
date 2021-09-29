@@ -52,13 +52,14 @@ function log_result(){
 	local packagename="$1" result="$2"
 	if [[ $result == "pass" ]]
 	then
-		echo -e "$packagename|\033[0;32m Pass \033[0m\n" >> log.txt
+		echo -e "$packagename |\033[0;32m pass \033[0m\n" >> log.txt
 	elif [[ $result == "fail" ]]
 	then
-		echo -e "$packagename|\033[0;31m Fail \033[0m\n" >> log.txt
+		echo -e "$packagename |\033[0;31m fail \033[0m\n" >> log.txt
 	else
-		echo -e "$packagename|\033[0;33m Skip \033[0m\n" >> log.txt
-}
+		echo -e "$packagename |\033[0;33m skip \033[0m\n" >> log.txt
+  fi
+  }
 
 function install_apt(){
 	local packagename="$1"
@@ -71,8 +72,8 @@ function install_apt(){
 		then
 			result="fail"
 		fi
-	fi
-		log_result($packagename, $result)
+  fi
+	log_result $packagename $result
 }
 
 function install_snap(){
