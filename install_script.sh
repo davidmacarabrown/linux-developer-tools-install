@@ -46,7 +46,6 @@ touch log.txt
 echo -e "Install|Result" >> log.txt
 echo -e "-----------|-----------" >> log.txt
 
-#echo -e "$packagename |\033[0;33m skip \033[0m\n" >> log.txt
 ############################### Functions ################################
 
 function log_result(){
@@ -54,8 +53,11 @@ function log_result(){
 	if [[ $result == "pass" ]]
 	then
 		echo -e "$packagename |\033[0;32m pass \033[0m\n" >> log.txt
-	else
+	elif [[ $result == "fail" ]]
+	then
 		echo -e "$packagename |\033[0;31m fail \033[0m\n" >> log.txt
+	else
+		echo -e "$packagename |\033[0;33m skip \033[0m\n" >> log.txt
   fi
 }
 
@@ -75,7 +77,6 @@ function install_package(){
 #Curl
 install_package "apt" "curl"
 
-
 #Setting Linux to use Local Time to fix clock sync when dual booting Windows - comment the following lines if you want this to be skipped.
 read -p "Set Linux to use Local Time? (Useful when dual booting to prevent clock from being out by one hour in Windows) [y/n]: " clockinput
 if [[  $clockinput == "y"  ]]
@@ -94,10 +95,8 @@ fi
 #Xclip - enables copying to clipboard via command line - useful for copying ZSH keys to paste to github
 install_package "apt" "xclip"
 
-#Slack Messaging Platform
+################################### Workspaces ############################
 install_package "snap" "slack --classic"
-
-#Zoom
 install_package "snap" "zoom-client"
 
 ###################################### Git #################################
@@ -133,132 +132,47 @@ fi
 
 ################################### Editors / IDE #########################
 # Add your own... :D
-
-#Atom
-snap install atom --classic
-if [[  $? == 0  ]]
-then
-	echo -e "Atom|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	echo -e "Atom|\033[0;31m Fail \033[0m\n" >> log.txt
-fi
-
-#VSCode
-snap install code --classic
-if [[ $? == 0  ]]
-then
-	echo -e "VSCode|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-		cho -e "VSCode|\033[0;31m Fail \033[0m\n" >> log.txt
-fi
-
-#IntelliJ Community Edition
-snap install intellij-idea-community --classic
-if [[  $? == 0  ]]
-then
-	echo -e "IntelliJ|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	echo -e "IntelliJ|\033[0;31m Fail \033[0m\n" >> log.txt
-fi
-
-#Android Studio
-snap install android-studio --classic
-if [[  $? == 0  ]]
-then
-	echo -e "Android Studio|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-		echo -e "Android Studio|\033[0;31m Fail \033[0m\n" >> log.txt
-fi
+install_package "snap" "atom --classic"
+install_package "snap" "code --classic"
+install_package "snap" "intellij --classic"
+install_package "snap" "android-studio --classic"
 
 #Thonny - Lightweight IDE for MicroPython
-apt -y install thonny
-if [[  $? == 0  ]]
-then
-	echo -e "Thonny|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "Thonny|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "Thonny|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
-fi
+install_package "apt" "thonny"
 
 ####################################LANGUAGES ###########################
 
-#Node Package Manager
-apt install -y npm
-if [[  $? == 0  ]]
-then
-	echo -e "NPM|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	apt --fix-broken -y install
-	if [[ $? == 0  ]]
-	then
-		echo -e "NPM|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "NPM|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
-fi
-
-#NodeJS
-apt install -y nodejs
-if [[  $? == 0  ]]
-then
-	echo -e "NodeJS|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "NodeJS|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "NodeJS|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
-fi
-
-#Java
-apt-get install -y openjdk-8-jdk
-if [[  $? == 0  ]]
-then
-	echo -e "Java JDK 8|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "Java JDK 8|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "Java JDK 8|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
-fi
+install_package "apt" "npm"
+install_package "apt" "nodejs"
+install_package "apt" "openjdk-8-jdk"
 
 # MonoDevelop for C#
 #SOURCE: https://www.monodevelop.com/download/#fndtn-download-lin
 
-#Add Mono Repository
-#read -p "Install Mono for C#? [y/n]: " monoanswer
-#if [[ $monoanswer == "y" ]]
-#then
-#	apt install apt-transport-https dirmngr
-#	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-#	echo "deb https://download.mono-project.com/repo/ubuntu vs-bionic main" | tee /etc/apt/sources.list.d/mono-official-vs.list
-#	apt update
-#	apt-get -y install mono-complete
-#	if [[  $? == 0  ]]
-#	then
-#		echo -e "Mono C#|\033[0;32m Pass \033[0m\n" >> log.txt
-#	else
-#		apt --fix-broken -y install
-#		if [[  $? == 0  ]]
-#		then
-#			echo -e "Mono C#|\033[0;32m Pass \033[0m\n" >> log.txt
-#		else
-#			echo -e "Mono C#|\033[0;31m Fail \033[0m\n" >> log.txt
-#		fi
-#	fi
-#else
-#	echo -e "Mono C#|\033[0;33m Skip \033[0m\n" >> log.txt
-#fi
+# Add Mono Repository
+read -p "Install Mono for C#? [y/n]: " monoanswer
+if [[ $monoanswer == "y" ]]
+then
+	apt install apt-transport-https dirmngr
+	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+	echo "deb https://download.mono-project.com/repo/ubuntu vs-bionic main" | tee /etc/apt/sources.list.d/mono-official-vs.list
+	apt update
+	apt-get -y install mono-complete
+	if [[  $? == 0  ]]
+	then
+		log_result "mono" "pass"
+	else
+		apt --fix-broken -y install
+		if [[  $? == 0  ]]
+		then
+			log_result "mono" "pass"
+		else
+			log_result "mono" "fail"
+		fi
+	fi
+else
+	echo -e "Mono C#|\033[0;33m Skip \033[0m\n" >> log.txt
+fi
 
 ####################################### DATABASE #################################
 
@@ -284,7 +198,7 @@ then
 						systemctl daemon-reload
 						systemctl start mongod
 						systemctl enable mongod
-						echo -e "MongoDB|\033[0;32m Pass \033[0m\n" >> log.txt
+						log_result mongodb"pass"
 				else
 					apt --fix-broken -y install
 					if [[  $? == 0  ]]
@@ -292,7 +206,7 @@ then
 							systemctl daemon-reload
 							systemctl start mongod
 							systemctl enable mongod
-							echo -e "MongoDB|\033[0;32m Pass \033[0m\n" >> log.txt
+							log_result $packagename "pass"
 					else
 						echo -e "MongoDB|\033[0;31m Fail \033[0m\n" >> log.txt
 					fi
@@ -330,23 +244,8 @@ else
 	fi
 fi
 
-#Insomnia
-snap install insomnia
-if [[  $? == 0  ]]
-then
-	echo -e "Insomnia|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-echo -e "Insomnia|\033[0;31m Fail \033[0m\n" >> log.txt
-fi
-
-#Postman
-snap install postman
-if [[  $? == 0  ]]
-then
-	echo -e "Postman|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	echo -e "Postman|\033[0;31m Fail \033[0m\n" >> log.txt
-fi
+install_package "snap" "insomnia"
+install_package "snap" "postman"
 
 #PostgresQL
 sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
@@ -368,33 +267,9 @@ fi
 
 #################################### PLANNING/DESIGN #############################
 
-#Figma
-snap install figma-linux
-if [[ $? == 0  ]]
-then
-	echo -e "Figma|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	echo -e "Figma|\033[0;31m Fail \033[0m\n" >> log.txt
-fi
-
-#Miro - "edge"/experimental release
-snap install --edge miro
-if [[  $? == 0  ]]
-then
-	echo -e "Miro|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	echo -e "Miro|\033[0;31m Fail \033[0m\n" >> log.txt
-fi
-
-
-#DrawIO - versatile UML software
-snap install drawio
-if [[  $? == 0  ]]
-then
-	echo -e "DrawIO|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	echo -e "DrawIO|\033[0;31m Fail \033[0m\n" >> log.txt
-fi
+install_package "snap" "figma"
+install_package "snap" "--edge miro"
+install_package "snap" "drawio"
 
 
 ####################################### OTHER #########################################
@@ -403,13 +278,7 @@ fi
 read -p "Do you want to install Oracle Virtual Box? [y/n]: " virtualcont
 if [[  $virtualcont == "y" ]]
 then
-	apt-get -y install virtualbox
-	if [[  $? == 0  ]]
-	then
-		echo -e "VirtualBox|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "VirtualBox|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
+	install_package "apt" "virtialbox"
 else
 	echo -e "VirtualBox|\033[0;33m Skip \033[0m\n" >> log.txt
 fi
@@ -441,4 +310,5 @@ echo "Installation Log:"
 echo "---------------------------------------------"
 column log.txt -e -t -s "|"
 echo "---------------------------------------------"
+echo "If any steps fail, re-run the script"
 exit 0
