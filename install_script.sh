@@ -49,21 +49,21 @@ echo -e "-----------|-----------" >> log.txt
 ############################### Functions ################################
 function log_result(){
 	local"$1"=packagename "$2"=result
-	
+
 }
 
 function install_apt(){
 	local "$1"=packagename
 	local result="Pass"
 	sudo apt install $packagename
-	if [[  $? == 0  ]]
+	if [[  $? -ne 0  ]]
 	then
-		echo -e "$packagename|\033[0;32m $result \033[0m\n" >> log.txt
-	else
 		apt --fix-broken -y install
-		if [[  $? == 0  ]]
+		if [[  $? -ne 0  ]]
 		then
-			result=""
+			result="Fail"
+		fi
+		log_result($packagename, $result)
 }
 
 function install_snap(){
