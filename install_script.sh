@@ -36,7 +36,7 @@ echo "Continue"
 #TODO: ADD user for postgres
 
 #checking for existing log file and creating one
-echo "Creating Log File at ./log.txt"
+echo "Creating log file"
 logfile="./log.txt"
 if [[  -f $logfile  ]]
 then
