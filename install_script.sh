@@ -236,10 +236,6 @@ apt update
 apt --fix-broken -y install
 apt autoremove
 
-#################################### LOG ##############################################
-
-#echo -n "Review results and press enter to continue to ZSH install"
-
 ################################# ZSH ##############################################
 #read continueanswer
 function install_ohmyzsh(){
@@ -256,6 +252,8 @@ then
 else
 	log_result "oh-my-zsh" "skip"
 fi
+
+#################################### LOG ##############################################
 
 echo "---------------------------------------------"
 echo "Installation Log:"
