@@ -46,43 +46,29 @@ touch log.txt
 echo -e "Install|Result" >> log.txt
 echo -e "-----------|-----------" >> log.txt
 
+#echo -e "$packagename |\033[0;33m skip \033[0m\n" >> log.txt
 ############################### Functions ################################
 
 function log_result(){
 	local packagename="$1" result="$2"
-	echo $packagename
 	if [[ $result == "pass" ]]
 	then
 		echo -e "$packagename |\033[0;32m pass \033[0m\n" >> log.txt
-	elif [[ $result == "fail" ]]
-	then
-		echo -e "$packagename |\033[0;31m fail \033[0m\n" >> log.txt
 	else
-		echo -e "$packagename |\033[0;33m skip \033[0m\n" >> log.txt
+		echo -e "$packagename |\033[0;31m fail \033[0m\n" >> log.txt
   fi
-  }
+}
 
-function install_apt(){
-	local packagename="$1"
-	sudo apt install $packagename
+function install_package(){
+	local manager="$1" packagename="$2"
+	sudo $manager install $packagename
 	if [[  $? != 0  ]]
 	then
 		log_result $packagename "fail"
 	else
 		log_result $packagename "pass"
   fi
-}
-
-function install_snap(){
-	local packagename="$1"
-	sudo snap install $packagename
-}
-
-function install_snap_classic(){
-	local packagename="$1"
-	sudo snap install $packagename --classic
-}
-
+	}
 
 ############################### Useful Extras ############################
 
