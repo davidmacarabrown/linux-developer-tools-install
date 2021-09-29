@@ -117,8 +117,6 @@ then
 	touch .gitignore_global
 fi
 
-
-
 #Adding node_modules to global ignore this can easily be added to by using: [ echo <what-to-ignore> >> .gitignore_global ]
 echo "**/node_modules" >> .gitignore_global
 #Adding global ignore to Git config
@@ -204,6 +202,7 @@ else
 	fi
 fi
 
+#Endpoint Testing GUI
 install_package "snap" "insomnia"
 install_package "snap" "postman"
 
