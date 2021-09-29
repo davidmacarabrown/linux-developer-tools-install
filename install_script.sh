@@ -34,7 +34,6 @@ echo "Continue"
 #TODO: add code . for vscode
 #TODO: POSTICO for postgres GUI
 #TODO: ADD user for postgres
-#TODO: drop pyCharm?
 
 #checking for existing log file and creating one
 echo "Creating Log File at ./log.txt"
@@ -193,15 +192,6 @@ then
 else
 		echo -e "Android Studio|\033[0;31m Fail \033[0m\n" >> log.txt
 fi
-
-#Pycharm Community Edition
-#snap install pycharm-community --classic
-#if [[  $? == 0  ]]
-#then
-#	echo -e "Pycharm|\033[0;32m Pass \033[0m\n" >> log.txt
-#else
-#	echo -e "Pycharm|\033[0;31m Fail \033[0m\n" >> log.txt
-#fi
 
 #Thonny - Lightweight IDE for MicroPython
 apt -y install thonny
