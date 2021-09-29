@@ -46,6 +46,37 @@ touch log.txt
 echo -e "Install|Result" >> log.txt
 echo -e "-----------|-----------" >> log.txt
 
+############################### Functions ################################
+function log_result(){
+	local"$1"=packagename "$2"=result
+	
+}
+
+function install_apt(){
+	local "$1"=packagename
+	local result="Pass"
+	sudo apt install $packagename
+	if [[  $? == 0  ]]
+	then
+		echo -e "$packagename|\033[0;32m $result \033[0m\n" >> log.txt
+	else
+		apt --fix-broken -y install
+		if [[  $? == 0  ]]
+		then
+			result=""
+}
+
+function install_snap(){
+	local "$1"=packagename
+	sudo snap install $packagename
+}
+
+function install_snap_classic(){
+	local "$1"=packagename
+	sudo snap install $packagename --classic
+}
+
+
 ############################### Useful Extras ############################
 
 #Curl
