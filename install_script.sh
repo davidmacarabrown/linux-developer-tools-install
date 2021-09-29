@@ -49,7 +49,7 @@ echo -e "-----------|-----------" >> log.txt
 ############################### Functions ################################
 
 function log_result(){
-	local"$1"=packagename "$2"=result
+	local packagename="$1" result="$2"
 	if [[ $result == "pass" ]]
 	then
 		echo -e "$packagename|\033[0;32m Pass \033[0m\n" >> log.txt
@@ -61,7 +61,7 @@ function log_result(){
 }
 
 function install_apt(){
-	local "$1"=packagename
+	local packagename="$1"
 	local result="pass"
 	sudo apt install $packagename
 	if [[  $? -ne 0  ]]
@@ -75,12 +75,12 @@ function install_apt(){
 }
 
 function install_snap(){
-	local "$1"=packagename
+	local packagename="$1"
 	sudo snap install $packagename
 }
 
 function install_snap_classic(){
-	local "$1"=packagename
+	local packagename="$1"
 	sudo snap install $packagename --classic
 }
 
