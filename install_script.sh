@@ -27,8 +27,12 @@ then
 fi
 echo "Continue"
 
+#prompts for installing ZSH, clock adjustment and Mono C#
+read -p "Install Oh-My-Zsh? [y/n]: " instzsh
+read -p "Set Linux to use Local Time? (Useful when dual booting to prevent clock from being out by one hour in Windows) [y/n]: " clockinput
+read -p "Install Mono for C#? [y/n]: " monoanswer
+
 #TODO: add input to ask if the user wants to enable optionals?
-#TODO: move all optional input prompts (not the code itself) to the top?
 #TODO: add Postgres under current name
 #TODO: update readme remove sudo instructions, permissions will be increased after script starts
 #TODO: add code . for vscode
@@ -78,7 +82,7 @@ function install_package(){
 install_package "apt" "curl"
 
 #Setting Linux to use Local Time to fix clock sync when dual booting Windows - comment the following lines if you want this to be skipped.
-read -p "Set Linux to use Local Time? (Useful when dual booting to prevent clock from being out by one hour in Windows) [y/n]: " clockinput
+
 if [[  $clockinput == "y"  ]]
 then
 	timedatectl set-local-rtc 1
@@ -110,25 +114,11 @@ if [ ! -f $ignorefile  ]
 then
 	touch .gitignore_global
 fi
-echo -e "Global Ignore|\033[0;32m Pass \033[0m\n" >> log.txt
-echo "**/node_modules" >> .gitignore_global
-if [[  $? == 0  ]]
-then
-	echo -e "Node Modules|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	echo -e "Node Modules|\033[0;31m Fail \033[0m\n" >> log.txt
-fi
 
+#Adding node_modules to global ignore this can easily be added to by using: [ echo <what-to-ignore> >> .gitignore_global ]
+echo "**/node_modules" >> .gitignore_global
 #Adding global ignore to Git config
 git config --global core.excludesfile .gitignore_global
-if [[  $? == 0  ]]
-then
-	echo -e "Global Config|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	echo -e "Global Config|\033[0;31m Fail \033[0m\n" >> log.txt
-fi
-	echo -e "Global Ignore|\033[0;31m Fail \033[0m\n" >> log.txt
-
 
 ################################### Editors / IDE #########################
 # Add your own... :D
@@ -150,26 +140,13 @@ install_package "apt" "openjdk-8-jdk"
 #SOURCE: https://www.monodevelop.com/download/#fndtn-download-lin
 
 # Add Mono Repository
-read -p "Install Mono for C#? [y/n]: " monoanswer
 if [[ $monoanswer == "y" ]]
 then
 	apt install apt-transport-https dirmngr
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
 	echo "deb https://download.mono-project.com/repo/ubuntu vs-bionic main" | tee /etc/apt/sources.list.d/mono-official-vs.list
 	apt update
-	apt-get -y install mono-complete
-	if [[  $? == 0  ]]
-	then
-		log_result "mono" "pass"
-	else
-		apt --fix-broken -y install
-		if [[  $? == 0  ]]
-		then
-			log_result "mono" "pass"
-		else
-			log_result "mono" "fail"
-		fi
-	fi
+	install_package "apt" "mono-complete"
 else
 	echo -e "Mono C#|\033[0;33m Skip \033[0m\n" >> log.txt
 fi
@@ -199,17 +176,8 @@ then
 						systemctl start mongod
 						systemctl enable mongod
 						log_result mongodb"pass"
-				else
-					apt --fix-broken -y install
-					if [[  $? == 0  ]]
-					then
-							systemctl daemon-reload
-							systemctl start mongod
-							systemctl enable mongod
-							log_result $packagename "pass"
 					else
-						echo -e "MongoDB|\033[0;31m Fail \033[0m\n" >> log.txt
-					fi
+						log_result "mongodb" "fail"
 				fi
 			fi
 		fi
@@ -226,21 +194,9 @@ else
 	dpkg -i mongodb-compass_1.28.4_amd64.deb
 	if [[  $? == 0  ]]
 	then
-		echo -e "Compass|\033[0;32m Pass \033[0m\n" >> log.txt
+		log_result "mongodb-compass" "pass"
 	else
-		apt update
-		apt upgrade
-		apt --fix-broken -y install
-		if [[  $? == 0  ]]
-		then
-			dpkg -i mongodb-compass_1.28.4_amd64.deb
-			if [[  $? == 0  ]]
-			then
-				echo -e "Compass|\033[0;32m Pass \033[0m\n" >> log.txt
-			fi
-		else
-			echo -e "Compass|\033[0;31m Fail \033[0m\n" >> log.txt
-		fi
+			log_result "mongodb-compass" "fail"
 	fi
 fi
 
@@ -251,26 +207,13 @@ install_package "snap" "postman"
 sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 apt-get update
-apt-get -y install postgresql
-if [[  $? == 0  ]]
-then
-	echo -e "PostgresQL|\033[0;32m Pass \033[0m\n" >> log.txt
-else
-	apt --fix-broken -y install
-	if [[  $? == 0  ]]
-	then
-		echo -e "PostgresQL|\033[0;32m Pass \033[0m\n" >> log.txt
-	else
-		echo -e "PostgresQL|\033[0;31m Fail \033[0m\n" >> log.txt
-	fi
-fi
+install_package "apt" "postgresql"
 
 #################################### PLANNING/DESIGN #############################
 
 install_package "snap" "figma"
 install_package "snap" "--edge miro"
 install_package "snap" "drawio"
-
 
 ####################################### OTHER #########################################
 
@@ -285,24 +228,30 @@ fi
 
 ################################# CLEANUP ############################################
 
+apt upgrade
+apt update
 apt --fix-broken -y install
 apt autoremove
 
 #################################### LOG ##############################################
 
-
 #echo -n "Review results and press enter to continue to ZSH install"
 
 ################################# ZSH ##############################################
 #read continueanswer
-
-read -p "Install Oh-My-Zsh? [y/n]: " instzsh
-if [[  $instzsh == "y"  ]]
-then
+function install_ohmyzsh(){
 	apt-get -y install zsh
 	git clone https://github.com/ohmyzsh/ohmyzsh.git ./.oh-my-zsh
 	cp ./.oh-my-zsh/templates/zshrc.zsh-template ./.zshrc
 	sudo -u $username cnsh -s $(which zsh)
+	log_result "oh-my-zsh" "pass"
+}
+
+if [[  $instzsh == "y"  ]]
+then
+ install_ohmyzsh
+else
+	log_result "oh-my-zsh" "skip"
 fi
 
 echo "---------------------------------------------"
