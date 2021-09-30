@@ -68,6 +68,7 @@ function log_result(){
 function install_package(){
 	local manager="$1" package="$2" optional="$3" optional2="$4"
 	local yflag=""
+	local status=""
 	if [[ $manager == "apt" ]]
 	then
 		yflag="-y"
@@ -75,10 +76,11 @@ function install_package(){
 	$manager install $package $optional $optional2
 	if [[  $? == 0  ]]
 	then
-		log_result $package "pass"
+		status="pass"
 	else
-		log_result $package "fail"
+		status="fail"
   fi
+	log_result $package $status
 	}
 
 # INFO:
