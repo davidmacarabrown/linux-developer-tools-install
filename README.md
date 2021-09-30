@@ -20,7 +20,7 @@ This script is provided without warranty of ANY KIND. Please review the script f
 and press enter. The file is now executable.  
 5. Before running the script, open it in a text editor of your choice and take a look at the contents. Some options are commented out by default, and you can comment out anything you wish to skip for now. You can re-run the script later to install them, or install them manually. 
 6. To Run the script, navigate to the root folder in the terminal and enter:  
-`sh install_script.sh` 
+`./install_script.sh` 
 7. Get something to drink, and follow any prompts in the terminal for the optional installs.  
 8. Feel free to add to the script anything you find useful for the future.  
 
