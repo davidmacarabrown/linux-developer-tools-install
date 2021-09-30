@@ -64,9 +64,9 @@ function log_result(){
   fi
 }
 
-function install_package(){
-	local manager="$1" packagename="$2"
-$manager install -y $packagename
+function install_apt(){
+	local packagename="$1"
+apt install -y $packagename
 	if [[  $? != 0  ]]
 	then
 		log_result $packagename "fail"
@@ -75,10 +75,22 @@ $manager install -y $packagename
   fi
 	}
 
+function install_snap(){
+	local packagename="$1"
+snap install $packagename
+	if [[  $? != 0  ]]
+	then
+		log_result $packagename "fail"
+	else
+		log_result $packagename "pass"
+  fi
+	}
+
+
 ############################### Useful Extras ############################
 
 #Curl
-install_package "apt" "curl"
+install_apt "curl"
 
 #Sets Linux to use Local Time to fix clock sync when dual booting Windows - this is optional - comment the following lines if you want this to be skipped by default
 if [[  $clockinput == "y"  ]]
@@ -95,19 +107,19 @@ else
 fi
 
 #Xclip - enables copying to clipboard via command line - useful for copying ZSH keys to paste to github
-install_package "apt" "xclip"
+install_apt "xclip"
 
 ################################### Workspaces ############################
-install_package "snap" "slack --classic"
-install_package "snap" "zoom-client"
+install_snap "slack --classic"
+install_snap "zoom-client"
 
 ###################################### Git #################################
 
 #Git CLI
-install_package "apt" "git"
+install_apt "git"
 
 #Git Kraken - awesome GUI for Git operations
-instal_package "snap" "gitkraken"
+instal_packagesnap "gitkraken"
 
 #Global .gitignore
 ignorefile="./.gitingore_global"
@@ -124,19 +136,19 @@ git config --global core.excludesfile .gitignore_global
 
 ################################### Editors / IDE #########################
 # Add your own... :D
-install_package "snap" "atom --classic"
-install_package "snap" "code --classic"
-install_package "snap" "intellij --classic"
-install_package "snap" "android-studio --classic"
+install_snap "atom --classic"
+install_snap "code --classic"
+install_snap "intellij --classic"
+install_snap "android-studio --classic"
 
 #Thonny - Lightweight IDE for MicroPython
-install_package "apt" "thonny"
+install_apt "thonny"
 
 ####################################LANGUAGES ###########################
 
-install_package "apt" "npm"
-install_package "apt" "nodejs"
-install_package "apt" "openjdk-8-jdk"
+install_apt "npm"
+install_apt "nodejs"
+install_apt "openjdk-8-jdk"
 
 # MonoDevelop for C#
 #SOURCE: https://www.monodevelop.com/download/#fndtn-download-lin
@@ -146,7 +158,7 @@ then
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
 	echo "deb https://download.mono-project.com/repo/ubuntu vs-bionic main" | tee /etc/apt/sources.list.d/mono-official-vs.list
 	apt update
-	install_package "apt" "mono-complete"
+	install_apt "mono-complete"
 else
 	echo -e "Mono C#|\033[0;33m Skip \033[0m\n" >> log.txt
 fi
@@ -201,23 +213,23 @@ else
 fi
 
 #Endpoint Testing GUI
-install_package "snap" "insomnia"
-install_package "snap" "postman"
+install_snap "insomnia"
+install_snap "postman"
 
 #PostgresQL
 sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 apt-get update
-install_package "apt" "postgresql"
+install_apt "postgresql"
 
 #PgAdmin GUI for postgresqlcurl https://www.pgadmin.org/static/packages_pgadmin_org.pub |apt-key addsh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
-install_package "apt" "pgadmin4-desktop"
+install_apt "pgadmin4-desktop"
 
 #################################### PLANNING/DESIGN #############################
 
-install_package "snap" "figma"
-install_package "snap" "--edge miro"
-install_package "snap" "drawio"
+install_snap "figma"
+install_snap "miro --edge"
+install_snap "drawio"
 
 ####################################### OTHER #########################################
 
@@ -225,7 +237,7 @@ install_package "snap" "drawio"
 read -p "Do you want to install Oracle Virtual Box? [y/n]: " virtualcont
 if [[  $virtualcont == "y" ]]
 then
-	install_package "apt" "virtialbox"
+	install_apt "virtialbox"
 else
 	echo -e "VirtualBox|\033[0;33m Skip \033[0m\n" >> log.txt
 fi
@@ -244,7 +256,7 @@ function install_ohmyzsh(){
 	apt-get -y install zsh
 	git clone https://github.com/ohmyzsh/ohmyzsh.git ./.oh-my-zsh
 	cp ./.oh-my-zsh/templates/zshrc.zsh-template ./.zshrc
--u $username cnsh -s $(which zsh)
+	-u $username cnsh -s $(which zsh)
 	log_result "oh-my-zsh" "pass"
 }
 
