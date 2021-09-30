@@ -101,7 +101,7 @@ else
 fi
 
 #Xclip - enables copying to clipboard via command line - useful for copying ZSH keys to paste to github
-install_apt "xclip"
+install_package "apt" "xclip"
 
 ################################### Workspaces ############################
 install_package "snap" "slack" "--classic"
@@ -113,7 +113,7 @@ install_package "snap" "zoom-client"
 install_package "apt" "git"
 
 #Git Kraken - awesome GUI for Git operations
-install_snap "snap" "gitkraken"
+install_package "snap" "gitkraken"
 
 #Global .gitignore
 ignorefile="./.gitingore_global"
