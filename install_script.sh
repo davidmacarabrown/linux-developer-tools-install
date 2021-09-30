@@ -56,12 +56,12 @@ function log_result(){
 	local package="$1" result="$2"
 	if [[ $result == "pass" ]]
 	then
-		echo -e "$package |\033[0;32m pass \033[0m\n" >> log.txt
+		echo -e ${package^} "|\033[0;32m ${result^} \033[0m\n" >> log.txt
 	elif [[ $result == "fail" ]]
 	then
-		echo -e "$package |\033[0;31m fail \033[0m\n" >> log.txt
+		echo -e ${package^} "|\033[0;31m ${result^} \033[0m\n" >> log.txt
 	else
-		echo -e "$package |\033[0;33m skip \033[0m\n" >> log.txt
+		echo -e ${package^} "|\033[0;33m ${result^} \033[0m\n" >> log.txt
   fi
 }
 
