@@ -237,7 +237,7 @@ install_snap "drawio"
 read -p "Do you want to install Oracle Virtual Box? [y/n]: " virtualcont
 if [[  $virtualcont == "y" ]]
 then
-	install_apt "virtialbox"
+	install_apt "virtualbox"
 else
 	echo -e "VirtualBox|\033[0;33m Skip \033[0m\n" >> log.txt
 fi
