@@ -81,6 +81,11 @@ function install_package(){
   fi
 	}
 
+# INFO:
+# To add additional packages to the script:
+# call the install_package with string arguments:
+# install_package <package_manager(e.g. "apt")> <package_name e.g. "virtualbox"> <additional args e.g. "--edge", "--classic"...>
+
 ############################### Useful Extras ############################
 
 #Curl
