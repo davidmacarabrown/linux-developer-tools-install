@@ -37,6 +37,7 @@ read -p "Install Mono for C#? [y/n]: " monoanswer
 #TODO: ADD code . for vscode
 #TODO: ADD user for postgres
 #TODO: ADD Gimp?
+#TODO: FIX ZSH
 
 #checking for existing log file and creating one
 echo "Creating log file"
@@ -136,7 +137,7 @@ git config --global core.excludesfile .gitignore_global
 # Add your own... :D
 install_package "snap" "atom" "--classic"
 install_package "snap" "code" "--classic"
-install_package "snap" "intellij" "--classic"
+install_package "snap" "intellij-idea-community" "--classic --edge"
 install_package "snap" "android-studio" "--classic"
 
 #Thonny - Lightweight IDE for MicroPython
@@ -212,7 +213,6 @@ fi
 
 #Endpoint Testing GUI
 install_package "snap" "insomnia"
-install_package "snap" "postman"
 
 #PostgresQL
 sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
