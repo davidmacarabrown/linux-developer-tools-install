@@ -76,8 +76,8 @@ function install_apt(){
 	}
 
 function install_snap(){
-	local packagename="$1"
-	snap install $packagename
+	local packagename="$1" flag="$2"
+	snap install $packagename $flag
 	if [[  $? == 0  ]]
 	then
 		log_result $packagename "pass"
