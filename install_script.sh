@@ -232,10 +232,10 @@ fi
 
 ################################# CLEANUP ############################################
 
-apt upgrade
+apt upgrade -y
 apt update
 apt --fix-broken -y install
-apt autoremove
+apt autoremove -y
 
 ################################# ZSH ##############################################
 
