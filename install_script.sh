@@ -33,10 +33,11 @@ read -p "Install Oh-My-Zsh? [y/n]: " instzsh
 read -p "Set Linux to use Local Time? (Useful when dual booting to prevent clock from being out by one hour in Windows) [y/n]: " clockinput
 read -p "Install Mono for C#? [y/n]: " monoanswer
 
-#TODO: add Postgres under current name
-#TODO: update readme remove sudo instructions, permissions will be increased after script starts?
-#TODO: add code . for vscode
+#TODO: ADD Postgres under current name
+#TODO: UPDATE readme remove sudo instructions, permissions will be increased after script starts?
+#TODO: ADD code . for vscode
 #TODO: ADD user for postgres
+#TODO: ADD Gimp?
 
 #checking for existing log file and creating one
 echo "Creating log file"
