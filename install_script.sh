@@ -226,9 +226,16 @@ install_apt "pgadmin4-desktop"
 
 #################################### PLANNING/DESIGN #############################
 
-install_snap "figma"
-snap install miro --edge
 install_snap "drawio"
+install_snap "figma"
+
+snap install miro --edge
+if [[ $? == 0 ]]
+then
+	log_result "miro" "pass"
+else
+	log_result "miro" "fail"
+fi
 
 ####################################### OTHER #########################################
 
