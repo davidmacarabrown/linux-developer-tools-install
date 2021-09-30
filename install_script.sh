@@ -34,7 +34,6 @@ read -p "Set Linux to use Local Time? (Useful when dual booting to prevent clock
 read -p "Install Mono for C#? [y/n]: " monoanswer
 
 #TODO: ADD Postgres under current name
-#TODO: UPDATE readme remove sudo instructions, permissions will be increased after script starts?
 #TODO: ADD code . for vscode
 #TODO: ADD user for postgres
 #TODO: ADD Gimp?
