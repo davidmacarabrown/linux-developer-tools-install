@@ -52,37 +52,31 @@ echo -e "-----------|-----------" >> log.txt
 ############################### Functions ################################
 
 function log_result(){
-	local packagename="$1" result="$2"
+	local package="$1" result="$2"
 	if [[ $result == "pass" ]]
 	then
-		echo -e "$packagename |\033[0;32m pass \033[0m\n" >> log.txt
+		echo -e "$package |\033[0;32m pass \033[0m\n" >> log.txt
 	elif [[ $result == "fail" ]]
 	then
-		echo -e "$packagename |\033[0;31m fail \033[0m\n" >> log.txt
+		echo -e "$package |\033[0;31m fail \033[0m\n" >> log.txt
 	else
-		echo -e "$packagename |\033[0;33m skip \033[0m\n" >> log.txt
+		echo -e "$package |\033[0;33m skip \033[0m\n" >> log.txt
   fi
 }
 
-function install_apt(){
-	local packagename="$1"
-	apt install -y $packagename
+function install_package(){
+	local manager="$1" package="$2" optflag="$3"
+	local yflag=""
+	if [[ $manager == "apt" ]]
+	then
+		yflag="-y"
+	fi
+	$manager install $package $optflag
 	if [[  $? == 0  ]]
 	then
-		log_result $packagename "pass"
+		log_result $package "pass"
 	else
-		log_result $packagename "fail"
-  fi
-	}
-
-function install_snap(){
-	local packagename="$1" flag="$2"
-	snap install $packagename $flag
-	if [[  $? == 0  ]]
-	then
-		log_result $packagename "pass"
-	else
-		log_result $packagename "fail"
+		log_result $package "fail"
   fi
 	}
 
@@ -118,7 +112,7 @@ install_snap "zoom-client"
 install_apt "git"
 
 #Git Kraken - awesome GUI for Git operations
-instal_packagesnap "gitkraken"
+install_snap "gitkraken"
 
 #Global .gitignore
 ignorefile="./.gitingore_global"
@@ -135,10 +129,10 @@ git config --global core.excludesfile .gitignore_global
 
 ################################### Editors / IDE #########################
 # Add your own... :D
-install_snap "atom --classic"
-install_snap "code --classic"
-install_snap "intellij --classic"
-install_snap "android-studio --classic"
+install_snap "atom" "--classic"
+install_snap "code" "--classic"
+install_snap "intellij" "--classic"
+install_snap "android-studio" "--classic"
 
 #Thonny - Lightweight IDE for MicroPython
 install_apt "thonny"
