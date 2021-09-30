@@ -228,14 +228,7 @@ install_apt "pgadmin4-desktop"
 
 install_snap "drawio"
 install_snap "figma"
-
-snap install miro --edge
-if [[ $? == 0 ]]
-then
-	log_result "miro" "pass"
-else
-	log_result "miro" "fail"
-fi
+install_snap "miro" "--edge"
 
 ####################################### OTHER #########################################
 
