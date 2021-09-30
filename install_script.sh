@@ -5,6 +5,7 @@ echo ""
 
 username=`logname`
 
+#Checking forprivileges
 if [ "$EUID" != 0 ]
 	then echo "Please run this script as root by entering: sudo <path to script>"
 	exit 0
@@ -32,9 +33,8 @@ read -p "Install Oh-My-Zsh? [y/n]: " instzsh
 read -p "Set Linux to use Local Time? (Useful when dual booting to prevent clock from being out by one hour in Windows) [y/n]: " clockinput
 read -p "Install Mono for C#? [y/n]: " monoanswer
 
-#TODO: add input to ask if the user wants to enable optionals?
 #TODO: add Postgres under current name
-#TODO: update readme remove sudo instructions, permissions will be increased after script starts
+#TODO: update readme remove sudo instructions, permissions will be increased after script starts?
 #TODO: add code . for vscode
 #TODO: ADD user for postgres
 
@@ -66,7 +66,7 @@ function log_result(){
 
 function install_package(){
 	local manager="$1" packagename="$2"
-	sudo $manager install -y $packagename
+$manager install -y $packagename
 	if [[  $? != 0  ]]
 	then
 		log_result $packagename "fail"
@@ -80,8 +80,7 @@ function install_package(){
 #Curl
 install_package "apt" "curl"
 
-#Setting Linux to use Local Time to fix clock sync when dual booting Windows - comment the following lines if you want this to be skipped.
-
+#Sets Linux to use Local Time to fix clock sync when dual booting Windows - this is optional - comment the following lines if you want this to be skipped by default
 if [[  $clockinput == "y"  ]]
 then
 	timedatectl set-local-rtc 1
@@ -119,6 +118,7 @@ fi
 
 #Adding node_modules to global ignore this can easily be added to by using: [ echo <what-to-ignore> >> .gitignore_global ]
 echo "**/node_modules" >> .gitignore_global
+
 #Adding global ignore to Git config
 git config --global core.excludesfile .gitignore_global
 
@@ -140,8 +140,6 @@ install_package "apt" "openjdk-8-jdk"
 
 # MonoDevelop for C#
 #SOURCE: https://www.monodevelop.com/download/#fndtn-download-lin
-
-# Add Mono Repository
 if [[ $monoanswer == "y" ]]
 then
 	apt install apt-transport-https dirmngr
@@ -212,9 +210,7 @@ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key a
 apt-get update
 install_package "apt" "postgresql"
 
-#PgAdmin GUI for postgresql
-sudo curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
-sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+#PgAdmin GUI for postgresqlcurl https://www.pgadmin.org/static/packages_pgadmin_org.pub |apt-key addsh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
 install_package "apt" "pgadmin4-desktop"
 
 #################################### PLANNING/DESIGN #############################
@@ -248,7 +244,7 @@ function install_ohmyzsh(){
 	apt-get -y install zsh
 	git clone https://github.com/ohmyzsh/ohmyzsh.git ./.oh-my-zsh
 	cp ./.oh-my-zsh/templates/zshrc.zsh-template ./.zshrc
-	sudo -u $username cnsh -s $(which zsh)
+-u $username cnsh -s $(which zsh)
 	log_result "oh-my-zsh" "pass"
 }
 
