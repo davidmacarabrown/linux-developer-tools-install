@@ -137,7 +137,7 @@ git config --global core.excludesfile .gitignore_global
 # Add your own... :D
 install_package snap atom --classic
 install_package snap code --classic
-install_package snap intellij-idea-community --classic --edge
+install_package snap intellij-idea-community --classic
 install_package snap android-studio --classic
 
 #Thonny - Lightweight IDE for MicroPython
