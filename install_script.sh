@@ -66,26 +66,25 @@ function log_result(){
 
 function install_apt(){
 	local packagename="$1"
-apt install -y $packagename
-	if [[  $? != 0  ]]
+	apt install -y $packagename
+	if [[  $? == 0  ]]
 	then
-		log_result $packagename "fail"
-	else
 		log_result $packagename "pass"
+	else
+		log_result $packagename "fail"
   fi
 	}
 
 function install_snap(){
 	local packagename="$1"
-snap install $packagename
-	if [[  $? != 0  ]]
+	snap install $packagename
+	if [[  $? == 0  ]]
 	then
-		log_result $packagename "fail"
-	else
 		log_result $packagename "pass"
+	else
+		log_result $packagename "fail"
   fi
 	}
-
 
 ############################### Useful Extras ############################
 
@@ -228,7 +227,7 @@ install_apt "pgadmin4-desktop"
 #################################### PLANNING/DESIGN #############################
 
 install_snap "figma"
-install_snap "miro --edge"
+snap install miro --edge
 install_snap "drawio"
 
 ####################################### OTHER #########################################
@@ -244,10 +243,10 @@ fi
 
 ################################# CLEANUP ############################################
 
-apt upgrade -y
+apt upgrade
 apt update
-apt --fix-broken -y install
-apt autoremove -y
+apt --fix-broken install
+apt autoremove
 
 ################################# ZSH ##############################################
 
