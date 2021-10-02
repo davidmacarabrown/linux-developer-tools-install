@@ -2,7 +2,7 @@
 
 ## Overview
 
-This script is designed to provide a largely unattended install procedure for various popular development tools. It installs various IDEs, Git, and a selection of popular languages and databases. Some design tools and common workspaces are also included (Zoom... Slack). This is a first draft and is by no means complete and has been tested on my personal machine running the aforementioned version of Ubuntu only. Your mileage may vary.
+This script is designed to provide an automated install procedure for various popular development tools. It installs various IDEs, Git, and a selection of popular languages and databases. Some design tools and common workspaces are also included. This is a first draft and is by no means complete and has been tested on my personal machine running the aforementioned version of Ubuntu only. Your mileage may vary.
 
 This script is provided without warranty of ANY KIND. Please review the script for yourself before running it on your machine.
 
@@ -18,9 +18,9 @@ This script is provided without warranty of ANY KIND. Please review the script f
 4. Before running the file in the terminal, we have to make it executable. To do this enter:  
 `chmod +x install_script.sh`  
 and press enter. The file is now executable.  
-5. Before running the script, open it in a text editor of your choice and take a look at the contents. Some options are commented out by default, and you can comment out anything you wish to skip for now. You can re-run the script later to install them, or install them manually. 
+5. Before running the script, open it in a text editor of your choice and take a look at the contents. Some options are commented out by default, and you can comment out anything you wish to skip for now. You can re-run the script later to install them, or install them manually.
 6. To Run the script, navigate to the root folder in the terminal and enter:  
-`./install_script.sh` 
+`./install_script.sh`
 7. Get something to drink, and follow any prompts in the terminal for the optional installs.  
 8. Feel free to add to the script anything you find useful for the future.  
 
