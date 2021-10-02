@@ -87,8 +87,7 @@ function install_package(){
 #Curl
 install_package apt curl
 
-#Sets Linux to use Local Time to fix clock sync when dual booting Windows - this is optional - comment the following lines if you want this to be skipped by default
-
+#Sets Linux to use Local Time to fix clock sync when dual booting Windows - this is optional - comment out the following lines if you want this to be skipped by default
 function set_time_local(){
 	sudo timedatectl set-local-rtc 1
 	if [[  $? == 0  ]]
@@ -99,6 +98,7 @@ function set_time_local(){
 	fi
 }
 
+# Reading result of prompt
 if [[  $clockinput == "y"  ]]
 then
 	set_time_local
@@ -106,11 +106,7 @@ else
 	log_result "Local Time" "skip" >> log.txt
 fi
 
-
-
-
-
-#Xclip - enables copying to clipboard via command line - useful for copying ZSH keys to paste to github
+#Xclip - enables copying to clipboard via command line - useful e.g. for copying ZSH keys from file to paste to github
 install_package apt xclip
 
 ################################### Workspaces ############################
@@ -156,7 +152,6 @@ install_package apt openjdk-8-jdk
 
 # MonoDevelop for C#
 #SOURCE: https://www.monodevelop.com/download/#fndtn-download-lin
-
 function install_mono(){
 	sudo apt install apt-transport-https dirmngr
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
@@ -170,6 +165,7 @@ function install_mono(){
 	fi
 }
 
+# Reading result of prompt
 if [[ $monoanswer == "y" ]]
 then
 	install_mono
@@ -234,6 +230,7 @@ fi
 }
 
 install_compass
+
 #Endpoint Testing GUI
 install_package snap insomnia
 
@@ -263,13 +260,6 @@ else
 	echo -e "VirtualBox|\033[0;33m Skip \033[0m\n" >> log.txt
 fi
 
-################################# CLEANUP ############################################
-
-apt upgrade
-apt update
-apt --fix-broken install
-apt autoremove
-
 ################################# ZSH ##############################################
 
 read continueanswer
@@ -291,7 +281,12 @@ else
 	log_result "oh-my-zsh" "skip"
 fi
 
+################################# CLEANUP ############################################
 
+apt upgrade
+apt update
+apt --fix-broken install
+apt autoremove
 
 #################################### LOG ##############################################
 
