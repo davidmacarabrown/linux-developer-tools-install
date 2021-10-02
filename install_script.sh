@@ -5,12 +5,6 @@ echo ""
 
 username=`logname`
 
-#Checking forprivileges
-if [ "$EUID" != 0 ]
-	then echo "Please run this script as root by entering: sudo <path to script>"
-	exit 0
-fi
-
 echo "This script is provided without warranty of any kind."
 echo ""
 echo "Before running this script it is advised to run the following commands in the terminal to update packages:"
@@ -73,7 +67,7 @@ function install_package(){
 	then
 		yflag="-y"
 	fi
-	$manager install $package $optional $optional2
+	sudo $manager install $package $optional $optional2
 	if [[  $? == 0  ]]
 	then
 		status="pass"
@@ -81,7 +75,7 @@ function install_package(){
 		status="fail"
   fi
 	log_result $package $status
-	}
+}
 
 # INFO:
 # To add additional packages to the script:
@@ -94,18 +88,27 @@ function install_package(){
 install_package apt curl
 
 #Sets Linux to use Local Time to fix clock sync when dual booting Windows - this is optional - comment the following lines if you want this to be skipped by default
-if [[  $clockinput == "y"  ]]
-then
-	timedatectl set-local-rtc 1
+
+function set_time_local(){
+	sudo timedatectl set-local-rtc 1
 	if [[  $? == 0  ]]
 	then
-		echo -e "Local Time|\033[0;32m Pass \033[0m\n" >> log.txt
+		log_result "Local Time" "pass"
 	else
-		echo -e "Local Time|\033[0;31m Fail \033[0m\n" >> log.txt
+		log_result "Local Time" "fail"
 	fi
+}
+
+if [[  $clockinput == "y"  ]]
+then
+	set_time_local
 else
-	echo -e "Local Time|\033[0;33m Skip \033[0m\n" >> log.txt
+	log_result "Local Time" "skip" >> log.txt
 fi
+
+
+
+
 
 #Xclip - enables copying to clipboard via command line - useful for copying ZSH keys to paste to github
 install_package apt xclip
@@ -153,66 +156,84 @@ install_package apt openjdk-8-jdk
 
 # MonoDevelop for C#
 #SOURCE: https://www.monodevelop.com/download/#fndtn-download-lin
-if [[ $monoanswer == "y" ]]
-then
-	apt install apt-transport-https dirmngr
+
+function install_mono(){
+	sudo apt install apt-transport-https dirmngr
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
 	echo "deb https://download.mono-project.com/repo/ubuntu vs-bionic main" | tee /etc/apt/sources.list.d/mono-official-vs.list
 	apt update
 	install_apt "mono-complete"
+	if [[ $? == 0 ]]
+		log_result "Mono" "fass"
+	else
+		log_result "Mono" "fail"
+	fi
+}
+
+if [[ $monoanswer == "y" ]]
+then
+	install_mono
 else
-	echo -e "Mono C#|\033[0;33m Skip \033[0m\n" >> log.txt
+	log_result "Mono" "Skip"
 fi
 
 ####################################### DATABASE #################################
 
 #MongoDB
-apt-get -y install gnupg
-if [[  $? == 0 ]]
-then
-	wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | apt-key add -
-	if [[  $? == 0  ]]
+function install_mongodb() {
+	sudo apt-get -y install gnupg
+	if [[  $? == 0 ]]
 	then
-		apt-get -y install gnupg
 		wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | apt-key add -
-		touch /etc/apt/sources.list.d/mongodb-org-5.0.list
 		if [[  $? == 0  ]]
 		then
-			echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+			sudo apt-get -y install gnupg
+			wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | apt-key add -
+			touch /etc/apt/sources.list.d/mongodb-org-5.0.list
 			if [[  $? == 0  ]]
 			then
-				apt-get update
-				apt-get install -y mongodb-org
+				echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-5.0.list
 				if [[  $? == 0  ]]
 				then
-						systemctl daemon-reload
-						systemctl start mongod
-						systemctl enable mongod
-						log_result "mongodb" "pass"
-					else
-						log_result "mongodb" "fail"
+					sudo apt-get update
+					sudo apt-get install -y mongodb-org
+					if [[  $? == 0  ]]
+					then
+							systemctl daemon-reload
+							systemctl start mongod
+							systemctl enable mongod
+							log_result "mongodb" "pass"
+						else
+							log_result "mongodb" "fail"
+					fi
 				fi
 			fi
 		fi
 	fi
-fi
+}
+
+install_mongodb
 
 #MongoDB Compass
 compassfile="mongodb-compass_1.28.4_amd64.deb"
+
+function install_compass(){
 if [  -f $compassfile  ]
 then
 	echo "file exists"
 else
 	wget https://downloads.mongodb.com/compass/mongodb-compass_1.28.4_amd64.deb
-	dpkg -i mongodb-compass_1.28.4_amd64.deb
+	sudo dpkg -i mongodb-compass_1.28.4_amd64.deb
 	if [[  $? == 0  ]]
 	then
 		log_result "mongodb-compass" "pass"
 	else
-			log_result "mongodb-compass" "fail"
+		log_result "mongodb-compass" "fail"
 	fi
 fi
+}
 
+install_compass
 #Endpoint Testing GUI
 install_package snap insomnia
 
@@ -252,20 +273,25 @@ apt autoremove
 ################################# ZSH ##############################################
 
 read continueanswer
-function install_ohmyzsh(){
-	apt-get -y install zsh
-	git clone https://github.com/ohmyzsh/ohmyzsh.git ./.oh-my-zsh
-	cp ./.oh-my-zsh/templates/zshrc.zsh-template ./.zshrc
-	-u $username cnsh -s $(which zsh)
-	log_result "oh-my-zsh" "pass"
+function install_zsh(){
+	sudo apt-get -y install zsh
+}
+
+function oh_my_zsh(){
+	git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+	cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+	chsh -s $(which zsh)
 }
 
 if [[  $instzsh == "y"  ]]
 then
- install_ohmyzsh
+ install_zsh
+ oh_my_zsh
 else
 	log_result "oh-my-zsh" "skip"
 fi
+
+
 
 #################################### LOG ##############################################
 
