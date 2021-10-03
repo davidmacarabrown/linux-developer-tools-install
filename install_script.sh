@@ -204,15 +204,20 @@ if [  -f $compassfile  ]
 then
 	echo "file exists"
 else
-	sudo apt-get install -y libgconf2-4
-	sudo apt-get install -y libgconf-2-4
 	wget https://downloads.mongodb.com/compass/mongodb-compass_1.28.4_amd64.deb
 	sudo dpkg -i mongodb-compass_1.28.4_amd64.deb
 	if [[  $? == 0  ]]
 	then
 		log_result "mongodb-compass" "pass"
 	else
-		log_result "mongodb-compass" "fail"
+		cleanup
+		sudo dpkg -i mongodb-compass_1.28.4_amd64.deb
+		if [[  $? == 0  ]]
+		then
+			log_result "mongodb-compass" "pass"
+		else
+			log_result "mongodb-compass" "fail"
+		fi
 	fi
 fi
 }
