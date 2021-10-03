@@ -181,12 +181,12 @@ function install_mongodb() {
 					sudo apt-get install -y mongodb-org
 					if [[  $? == 0  ]]
 					then
-							systemctl daemon-reload
-							systemctl start mongod
-							systemctl enable mongod
-							log_result "mongodb" "pass"
-						else
-							log_result "mongodb" "fail"
+						systemctl daemon-reload
+						systemctl start mongod
+						systemctl enable mongod
+						log_result "mongodb" "pass"
+					else
+						log_result "mongodb" "fail"
 					fi
 				fi
 			fi
@@ -204,6 +204,8 @@ if [  -f $compassfile  ]
 then
 	echo "file exists"
 else
+	sudo apt-get install -y libgconf2-4
+	sudo apt-get install -y libgconf-2-4
 	wget https://downloads.mongodb.com/compass/mongodb-compass_1.28.4_amd64.deb
 	sudo dpkg -i mongodb-compass_1.28.4_amd64.deb
 	if [[  $? == 0  ]]
@@ -223,7 +225,7 @@ install_package snap insomnia
 #PostgresQL
 function install_psql(){
 	sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-	sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+	sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 	sudo apt-get update
 	install_package apt postgresql
 }
