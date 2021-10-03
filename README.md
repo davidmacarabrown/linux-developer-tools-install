@@ -21,7 +21,7 @@ and press enter. The file is now executable.
 5. Before running the script, open it in a text editor of your choice and take a look at the contents. Some options are commented out by default, and you can comment out anything you wish to skip for now. You can re-run the script later to install them, or install them manually.
 6. To Run the script, navigate to the root folder in the terminal and enter:  
 `./install_script.sh`
-7. Get something to drink, and follow any prompts in the terminal for the optional installs.  
+7. Get something to drink, and follow any prompts in the terminal for the optional installs and password entry.  
 8. Feel free to add to the script anything you find useful for the future.  
 
 ## Included Items
@@ -30,11 +30,11 @@ and press enter. The file is now executable.
 
 - Zoom
 - Slack
-- Discord
 
 ### Version
 
 - Git
+- Git Kraken
 
 ### IDEs & Editors
 
@@ -42,7 +42,6 @@ and press enter. The file is now executable.
 - VSCode
 - IntelliJ Community Edition
 - Android Studio
-- PyCharm Community Edition
 - Thonny (lightweight IDE for MicroPython)
 
 ### Languages
@@ -54,12 +53,11 @@ and press enter. The file is now executable.
 ### Database
 
 - MongoDB & MongoDB Compass
-- PostgresQL
+- PostgresQL & PgAdmin
 
 ### API Testing
 
 - Insomnia
-- Postman
 
 ### Design Tools
 
@@ -69,12 +67,11 @@ and press enter. The file is now executable.
 
 ### Optional
 
-- Mono C# IDE (Commented out in the file by default)
 - Oracle VirtualBox
-- Oh-My-Zsh terminal shell
 - Local time adjustment (useful when dual-booting to avoid clock sync problems in Windows)
 
 ### Other
 
 - Curl
 - XClip (useful for copying to the clipboard from terminal e.g. for pasting SSH key to Github account)
+- Oh-My-Zsh (includes ZSH with some modifications to make the terminal easier to use)

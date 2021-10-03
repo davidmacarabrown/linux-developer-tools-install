@@ -19,14 +19,11 @@ then
 fi
 echo "Continue"
 
-#prompts for installing ZSH, clock adjustment and Mono C#
+# Prompts for local time fix and virtualbox
 read -p "Set Linux to use Local Time? (Useful when dual booting to prevent clock from being out by one hour in Windows) [y/n]: " clockinput
 read -p "Do you want to install Oracle Virtual Box? [y/n]: " virtualcont
 
-#TODO: ADD Postgres under current name
-#TODO: ADD Gimp?
-
-#checking for existing log file and creating one
+# Checking for existing log file and creating one
 echo "Creating log file"
 logfile="./log.txt"
 if [[  -f $logfile  ]]
@@ -86,15 +83,16 @@ function install_package(){
 }
 
 ################################### INFO ################################
+
 # To add additional packages to the script:
 # install_package <package_manager(e.g. apt)> <package_name e.g. virtualbox> <additional args e.g. --edge, --classic...>
 
 ############################### Useful Extras ############################
 
-#Curl
+# Curl
 install_package apt curl
 
-#Sets Linux to use Local Time to fix clock sync when dual booting Windows - this is optional - comment out the following lines if you want this to be skipped by default
+# Sets Linux to use Local Time to fix clock sync when dual booting Windows
 function set_time_local(){
 	sudo timedatectl set-local-rtc 1
 	if [[  $? == 0  ]]
@@ -113,7 +111,7 @@ else
 	log_result "Local Time" "skip" >> log.txt
 fi
 
-#Xclip - enables copying to clipboard via command line - useful e.g. for copying ZSH keys from file to paste to github
+# Xclip - enables copying to clipboard via command line - useful e.g. for copying ZSH keys from file to paste to github
 install_package apt xclip
 
 ################################### Workspaces ############################
@@ -123,23 +121,23 @@ install_package snap zoom-client
 
 ###################################### Git #################################
 
-#Git CLI
+# Git CLI
 install_package apt git
 
-#Git Kraken - awesome GUI for Git operations
+# Git Kraken - awesome GUI for Git operations
 install_package snap gitkraken --classic
 
-#Global .gitignore
+# Global .gitignore
 ignorefile="./.gitingore_global"
 if [ ! -f $ignorefile  ]
 then
 	touch .gitignore_global
 fi
 
-#Adding node_modules to global ignore. This can easily be added to by using: echo ""<what-to-ignore>"" >> .gitignore_global
+# Adding node_modules to global ignore. This can easily be added to by using: echo ""<what-to-ignore>"" >> .gitignore_global
 echo "**/node_modules" >> .gitignore_global
 
-#Adding global ignore to Git config
+# Adding global ignore to Git config
 git config --global core.excludesfile .gitignore_global
 
 ################################### Editors / IDE #########################
@@ -149,7 +147,7 @@ install_package snap code --classic
 install_package snap intellij-idea-community --classic #check this one
 install_package snap android-studio --classic
 
-#Thonny - Lightweight IDE for MicroPython
+# Thonny - Lightweight IDE for MicroPython
 install_package apt thonny
 
 ####################################LANGUAGES ###########################
@@ -160,7 +158,7 @@ install_package apt openjdk-8-jdk
 
 ####################################### DATABASE #################################
 
-#MongoDB
+# MongoDB
 function install_mongodb() {
 	mongodbstatus="fail"
 	sudo apt-get -y install gnupg
@@ -189,7 +187,7 @@ function install_mongodb() {
 
 install_mongodb
 
-#MongoDB Compass
+# MongoDB Compass
 compassfile="mongodb-compass_1.28.4_amd64.deb"
 
 function install_compass(){
@@ -220,7 +218,7 @@ function install_compass(){
 
 install_compass
 
-#PostgresQL
+# PostgresQL
 function install_psql(){
 	sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 	sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
@@ -228,7 +226,7 @@ function install_psql(){
 	install_package apt postgresql
 }
 
-#PgAdmin GUI for postgresqlcurl https://www.pgadmin.org/static/packages_pgadmin_org.pub |apt-key addsh -c 'echo deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+# PgAdmin GUI for postgresqlcurl https://www.pgadmin.org/static/packages_pgadmin_org.pub |apt-key addsh -c 'echo deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main > /etc/apt/sources.list.d/pgadmin4.list && apt update'
 function install_pgadmin(){
 	sudo curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
 	sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
@@ -250,7 +248,7 @@ install_package snap miro --edge
 
 ####################################### OTHER #########################################
 
-#VirtualBox
+# VirtualBox
 if [[  $virtualcont == "y" ]]
 then
 	install_package apt virtualbox
