@@ -267,7 +267,7 @@ if [[  $virtualcont == "y" ]]
 then
 	install_package apt virtualbox
 else
-	echo -e "VirtualBox|\033[0;33m Skip \033[0m\n" >> log.txt
+	log_result "virtualbox" "skip"
 fi
 
 ################################# ZSH ##############################################
