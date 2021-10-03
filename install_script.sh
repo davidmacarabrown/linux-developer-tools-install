@@ -138,7 +138,7 @@ git config --global core.excludesfile .gitignore_global
 # Add your own... :D
 install_package snap atom --classic
 install_package snap code --classic
-install_package snap intellij-idea-community --classic
+install_package snap intellij-idea-community --classic #check this one
 install_package snap android-studio --classic
 
 #Thonny - Lightweight IDE for MicroPython
@@ -159,6 +159,7 @@ function install_mono(){
 	apt update
 	install_apt "mono-complete"
 	if [[ $? == 0 ]]
+	then
 		log_result "Mono" "fass"
 	else
 		log_result "Mono" "fail"
