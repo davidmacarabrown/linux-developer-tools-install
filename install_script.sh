@@ -71,6 +71,7 @@ function install_package(){
 	elif [[ $manager == "apt" ]]
 		then
 			cleanup
+			sudo $manager install $package $optional $optional2
 			if [[  $? == 0  ]]
 			then
 				status="pass"
