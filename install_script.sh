@@ -26,6 +26,7 @@ echo "Continue"
 read -p "Install Oh-My-Zsh? [y/n]: " instzsh
 read -p "Set Linux to use Local Time? (Useful when dual booting to prevent clock from being out by one hour in Windows) [y/n]: " clockinput
 read -p "Install Mono for C#? [y/n]: " monoanswer
+read -p "Do you want to install Oracle Virtual Box? [y/n]: " virtualcont
 
 #TODO: ADD Postgres under current name
 #TODO: ADD code . for vscode
@@ -242,18 +243,17 @@ apt-get update
 install_package apt postgresql
 
 #PgAdmin GUI for postgresqlcurl https://www.pgadmin.org/static/packages_pgadmin_org.pub |apt-key addsh -c 'echo deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main > /etc/apt/sources.list.d/pgadmin4.list && apt update'
-install_package apt pgadmin4-desktop
+install_package apt pgadmin4-desktop #check
 
 #################################### PLANNING/DESIGN #############################
 
 install_package snap drawio
-install_package snap figma
+install_package snap figma #check
 install_package snap miro --edge
 
 ####################################### OTHER #########################################
 
 #VirtualBox
-read -p "Do you want to install Oracle Virtual Box? [y/n]: " virtualcont
 if [[  $virtualcont == "y" ]]
 then
 	install_package apt virtualbox
