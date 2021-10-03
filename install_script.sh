@@ -298,10 +298,14 @@ fi
 
 ################################# CLEANUP ############################################
 
-apt upgrade
-apt update
-apt --fix-broken install
-apt autoremove
+function cleanup(){
+	sudo apt upgrade
+	sudo apt update
+	sudo apt --fix-broken install
+	sudo apt autoremove
+}
+
+cleanup
 
 #################################### LOG ##############################################
 
