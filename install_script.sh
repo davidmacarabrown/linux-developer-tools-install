@@ -166,28 +166,22 @@ function install_mongodb() {
 	sudo apt-get -y install gnupg
 	if [[  $? == 0 ]]
 	then
-		wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | apt-key add -
+		wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
 		if [[  $? == 0  ]]
 		then
-			sudo apt-get -y install gnupg
-			wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | apt-key add -
-			touch /etc/apt/sources.list.d/mongodb-org-5.0.list
+			echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-5.0.list
 			if [[  $? == 0  ]]
 			then
-				echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+				sudo apt-get update
+				sudo apt-get install -y mongodb-org
 				if [[  $? == 0  ]]
 				then
-					sudo apt-get update
-					sudo apt-get install -y mongodb-org
-					if [[  $? == 0  ]]
-					then
-						systemctl daemon-reload
-						systemctl start mongod
-						systemctl enable mongod
-						log_result "mongodb" "pass"
-					else
-						log_result "mongodb" "fail"
-					fi
+					systemctl daemon-reload
+					systemctl start mongod
+					systemctl enable mongod
+					log_result "mongodb" "pass"
+				else
+					log_result "mongodb" "fail"
 				fi
 			fi
 		fi
