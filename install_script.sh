@@ -263,7 +263,7 @@ install_pgadmin
 #################################### PLANNING/DESIGN #############################
 
 install_package snap drawio
-install_package snap figma #check
+install_package snap figma-linux
 install_package snap miro --edge
 
 ####################################### OTHER #########################################
