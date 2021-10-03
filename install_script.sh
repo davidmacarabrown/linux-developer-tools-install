@@ -252,7 +252,13 @@ apt-get update
 install_package apt postgresql
 
 #PgAdmin GUI for postgresqlcurl https://www.pgadmin.org/static/packages_pgadmin_org.pub |apt-key addsh -c 'echo deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main > /etc/apt/sources.list.d/pgadmin4.list && apt update'
-install_package apt pgadmin4-desktop #check
+function install_pgadmin(){
+	sudo curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
+	sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+	install_package apt pgadmin4-desktop
+}
+
+install_pgadmin
 
 #################################### PLANNING/DESIGN #############################
 
