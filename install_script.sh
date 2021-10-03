@@ -72,7 +72,16 @@ function install_package(){
 	if [[  $? == 0  ]]
 	then
 		status="pass"
-	else
+	elif [[ $manager == "apt" ]]
+		then
+			sudo apt --fix-broken install
+			sudo $manager install $package $optional $optional2
+			if [[  $? == 0  ]]
+			then
+				status="pass"
+			else status="fail"
+			fi
+		else
 		status="fail"
   fi
 	log_result $package $status
