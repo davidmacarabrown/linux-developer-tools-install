@@ -2,9 +2,6 @@
 echo ""
 echo "Development Tools Install Script"
 echo ""
-
-username=`logname`
-
 echo "This script is provided without warranty of any kind."
 echo ""
 echo "Before running this script it is advised to run the following commands in the terminal to update packages:"
@@ -27,10 +24,7 @@ read -p "Set Linux to use Local Time? (Useful when dual booting to prevent clock
 read -p "Do you want to install Oracle Virtual Box? [y/n]: " virtualcont
 
 #TODO: ADD Postgres under current name
-#TODO: ADD code . for vscode
-#TODO: ADD user for postgres
 #TODO: ADD Gimp?
-#TODO: FIX ZSH
 
 #checking for existing log file and creating one
 echo "Creating log file"
@@ -143,7 +137,7 @@ then
 	touch .gitignore_global
 fi
 
-#Adding node_modules to global ignore this can easily be added to by using: [ echo <what-to-ignore> >> .gitignore_global ]
+#Adding node_modules to global ignore. This can easily be added to by using: echo ""<what-to-ignore>"" >> .gitignore_global
 echo "**/node_modules" >> .gitignore_global
 
 #Adding global ignore to Git config
