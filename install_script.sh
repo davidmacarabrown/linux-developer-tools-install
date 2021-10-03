@@ -23,9 +23,7 @@ fi
 echo "Continue"
 
 #prompts for installing ZSH, clock adjustment and Mono C#
-read -p "Install Oh-My-Zsh? [y/n]: " instzsh
 read -p "Set Linux to use Local Time? (Useful when dual booting to prevent clock from being out by one hour in Windows) [y/n]: " clockinput
-read -p "Install Mono for C#? [y/n]: " monoanswer
 read -p "Do you want to install Oracle Virtual Box? [y/n]: " virtualcont
 
 #TODO: ADD Postgres under current name
@@ -126,6 +124,7 @@ fi
 install_package apt xclip
 
 ################################### Workspaces ############################
+
 install_package snap slack --classic
 install_package snap zoom-client
 
@@ -165,30 +164,6 @@ install_package apt thonny
 install_package apt npm
 install_package apt nodejs
 install_package apt openjdk-8-jdk
-
-# MonoDevelop for C#
-#SOURCE: https://www.monodevelop.com/download/#fndtn-download-lin
-function install_mono(){
-	sudo apt install apt-transport-https dirmngr
-	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-	echo "deb https://download.mono-project.com/repo/ubuntu vs-bionic main" | tee /etc/apt/sources.list.d/mono-official-vs.list
-	apt update
-	install_package "mono-complete"
-	if [[ $? == 0 ]]
-	then
-		log_result "Mono" "pass"
-	else
-		log_result "Mono" "fail"
-	fi
-}
-
-# Reading result of prompt
-if [[ $monoanswer == "y" ]]
-then
-	install_mono
-else
-	log_result "Mono" "Skip"
-fi
 
 ####################################### DATABASE #################################
 
@@ -284,8 +259,10 @@ fi
 
 ################################# ZSH ##############################################
 
+zshresult=1
 function install_zsh(){
 	sudo apt-get -y install zsh
+	zshresult=$?
 }
 
 function oh_my_zsh(){
@@ -294,12 +271,15 @@ function oh_my_zsh(){
 	chsh -s $(which zsh)
 }
 
-if [[  $instzsh == "y"  ]]
+
+install_zsh
+oh_my_zsh
+
+if [[ $zshresult == 0 ]]
 then
- install_zsh
- oh_my_zsh
+	log_result "oh-my-zsh" "pass"
 else
-	log_result "oh-my-zsh" "skip"
+	log_result "oh-my-zsh" "fail"
 fi
 
 ################################# CLEANUP ############################################
