@@ -163,13 +163,14 @@ install_package apt openjdk-8-jdk
 
 #MongoDB
 function install_mongodb() {
+	mongodbstatus="fail"
 	sudo apt-get -y install gnupg
 	if [[  $? == 0 ]]
 	then
 		wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
 		if [[  $? == 0  ]]
 		then
-			echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+			echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
 			if [[  $? == 0  ]]
 			then
 				sudo apt-get update
@@ -179,13 +180,12 @@ function install_mongodb() {
 					systemctl daemon-reload
 					systemctl start mongod
 					systemctl enable mongod
-					log_result "mongodb" "pass"
-				else
-					log_result "mongodb" "fail"
+					mongodbstatus="pass"
 				fi
 			fi
 		fi
 	fi
+	log_result "mongodb" $mongodbstatus
 }
 
 install_mongodb
@@ -194,26 +194,29 @@ install_mongodb
 compassfile="mongodb-compass_1.28.4_amd64.deb"
 
 function install_compass(){
-if [  -f $compassfile  ]
-then
-	echo "file exists"
-else
-	wget https://downloads.mongodb.com/compass/mongodb-compass_1.28.4_amd64.deb
-	sudo dpkg -i mongodb-compass_1.28.4_amd64.deb
-	if [[  $? == 0  ]]
+	compassstatus="fail"
+	if [  -f $compassfile  ]
 	then
-		log_result "mongodb-compass" "pass"
+		echo "file exists"
 	else
-		cleanup
+		wget https://downloads.mongodb.com/compass/mongodb-compass_1.28.4_amd64.deb
 		sudo dpkg -i mongodb-compass_1.28.4_amd64.deb
 		if [[  $? == 0  ]]
 		then
-			log_result "mongodb-compass" "pass"
+			compassstatus="pass"
+			rm mongodb-compass_1.28.4_amd64.deb
 		else
-			log_result "mongodb-compass" "fail"
+			cleanup
+			sudo dpkg -i mongodb-compass_1.28.4_amd64.deb
+			if [[  $? == 0  ]]
+			then
+				compassstatus="pass"
+				rm mongodb-compass_1.28.4_amd64.deb
+			fi
 		fi
 	fi
-fi
+
+	log_result "mongodb-compass" $compassstatus
 }
 
 install_compass
