@@ -170,7 +170,7 @@ function install_mono(){
 	install_package "mono-complete"
 	if [[ $? == 0 ]]
 	then
-		log_result "Mono" "fass"
+		log_result "Mono" "pass"
 	else
 		log_result "Mono" "fail"
 	fi
