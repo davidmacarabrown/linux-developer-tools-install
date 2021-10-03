@@ -119,7 +119,7 @@ install_package snap zoom-client
 install_package apt git
 
 #Git Kraken - awesome GUI for Git operations
-install_package snap gitkraken
+install_package snap gitkraken --classic
 
 #Global .gitignore
 ignorefile="./.gitingore_global"
@@ -262,7 +262,6 @@ fi
 
 ################################# ZSH ##############################################
 
-read continueanswer
 function install_zsh(){
 	sudo apt-get -y install zsh
 }
