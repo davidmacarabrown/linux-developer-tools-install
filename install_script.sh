@@ -41,9 +41,9 @@ echo -e "-----------|-----------" >> log.txt
 
 function cleanup(){
 	sudo apt upgrade
-	sudo apt update
+	sudo apt -y update
 	sudo apt --fix-broken install
-	sudo apt autoremove
+	sudo apt -y autoremove
 }
 
 function log_result(){
@@ -85,9 +85,8 @@ function install_package(){
 	log_result $package $status
 }
 
-# INFO:
+################################### INFO ################################
 # To add additional packages to the script:
-# call the install_package with string arguments:
 # install_package <package_manager(e.g. apt)> <package_name e.g. virtualbox> <additional args e.g. --edge, --classic...>
 
 ############################### Useful Extras ############################
@@ -185,7 +184,7 @@ function install_mongodb() {
 			fi
 		fi
 	fi
-	log_result "mongodb" $mongodbstatus
+	log_result "MongoDB" $mongodbstatus
 }
 
 install_mongodb
@@ -216,13 +215,10 @@ function install_compass(){
 		fi
 	fi
 
-	log_result "mongodb-compass" $compassstatus
+	log_result "MongoDB-Compass" $compassstatus
 }
 
 install_compass
-
-#Endpoint Testing GUI
-install_package snap insomnia
 
 #PostgresQL
 function install_psql(){
@@ -242,7 +238,11 @@ function install_pgadmin(){
 install_psql
 install_pgadmin
 
-#################################### PLANNING/DESIGN #############################
+#################################### ENDPOINT TESTING ###############################
+
+install_package snap insomnia
+
+#################################### PLANNING/DESIGN ################################
 
 install_package snap drawio
 install_package snap figma-linux
