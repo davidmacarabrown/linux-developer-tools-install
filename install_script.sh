@@ -221,10 +221,12 @@ install_compass
 install_package snap insomnia
 
 #PostgresQL
-sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-apt-get update
-install_package apt postgresql
+function install_psql(){
+	sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+	sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+	sudo apt-get update
+	install_package apt postgresql
+}
 
 #PgAdmin GUI for postgresqlcurl https://www.pgadmin.org/static/packages_pgadmin_org.pub |apt-key addsh -c 'echo deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main > /etc/apt/sources.list.d/pgadmin4.list && apt update'
 function install_pgadmin(){
@@ -233,6 +235,7 @@ function install_pgadmin(){
 	install_package apt pgadmin4-desktop
 }
 
+install_psql
 install_pgadmin
 
 #################################### PLANNING/DESIGN #############################
