@@ -47,6 +47,13 @@ echo -e "-----------|-----------" >> log.txt
 
 ############################### Functions ################################
 
+function cleanup(){
+	sudo apt upgrade
+	sudo apt update
+	sudo apt --fix-broken install
+	sudo apt autoremove
+}
+
 function log_result(){
 	local package="$1" result="$2"
 	if [[ $result == "pass" ]]
@@ -74,8 +81,7 @@ function install_package(){
 		status="pass"
 	elif [[ $manager == "apt" ]]
 		then
-			sudo apt --fix-broken install
-			sudo $manager install $package $optional $optional2
+			cleanup
 			if [[  $? == 0  ]]
 			then
 				status="pass"
@@ -297,13 +303,6 @@ else
 fi
 
 ################################# CLEANUP ############################################
-
-function cleanup(){
-	sudo apt upgrade
-	sudo apt update
-	sudo apt --fix-broken install
-	sudo apt autoremove
-}
 
 cleanup
 
