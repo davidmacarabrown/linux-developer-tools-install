@@ -153,8 +153,15 @@ install_package apt thonny
 
 ####################################LANGUAGES ###########################
 
+
+function install_node(){
+	curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+	install_package apt nodejs
+}
+
+install_node
+
 install_package apt npm
-install_package apt nodejs
 install_package apt openjdk-8-jdk
 
 #Yarn
@@ -164,6 +171,8 @@ install_yarn(){
 	sudo apt update
 	install_package apt yarn
 }
+
+install_yarn
 ####################################### DATABASE #################################
 
 # MongoDB
