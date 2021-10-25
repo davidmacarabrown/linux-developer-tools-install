@@ -293,6 +293,11 @@ oh_my_zsh
 if [[ $zshresult == 0 ]]
 then
 	log_result "oh-my-zsh" "pass"
+	echo "export ANDROID_HOME=$HOME/Android/Sdk" >> ~/.zshrc
+	echo "export PATH=$PATH:$ANDROID_HOME/emulator" >> ~/.zshrc
+	echo "export PATH=$PATH:$ANDROID_HOME/tools" >> ~/.zshrc
+	echo "export PATH=$PATH:$ANDROID_HOME/tools/bin" >> ~/.zshrc
+	echo "export PATH=$PATH:$ANDROID_HOME/platform-tools" >> ~/.zshrc
 else
 	log_result "oh-my-zsh" "fail"
 fi
