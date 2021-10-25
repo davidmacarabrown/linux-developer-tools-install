@@ -161,7 +161,6 @@ function install_node(){
 
 install_node
 
-install_package apt npm
 install_package apt openjdk-8-jdk
 
 #Yarn
