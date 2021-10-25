@@ -64,14 +64,14 @@ function install_package(){
 	then
 		yflag="-y"
 	fi
-	sudo $manager install $package $optional $optional2
+	sudo $manager install $yflag $package $optional $optional2
 	if [[  $? == 0  ]]
 	then
 		status="pass"
 	elif [[ $manager == "apt" ]]
 		then
 			cleanup
-			sudo $manager install $package $optional $optional2
+			sudo $manager install $yflag $package $optional $optional2
 			if [[  $? == 0  ]]
 			then
 				status="pass"
